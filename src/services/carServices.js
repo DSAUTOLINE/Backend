@@ -41,7 +41,9 @@ const carServices = {
         if(result){
             for (let i=0; i< result.length ; i++){
                 const option = await sqlCar.optionList(result[i].car_code)
+                const color = await sqlCar.colorList(result[i].car_code)
                 result[i].option = option
+                result[i].color = color
             }
             return result;
         }else{

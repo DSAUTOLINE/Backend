@@ -64,7 +64,7 @@ const sqlCar = {
         const sql = await sequelize.query(sqlQuery, {
             type: Sequelize.QueryTypes.SELECT
         });
-        const colors = await carColor.findAll({attributes:['name','rgb'],where:{car_code:nid},raw:true})
+        const colors = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
         const trims = await carTrim.findAll({attributes:['trim1','trim2','price'],where:{car_code:nid},raw:true})
         const options = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
         sql[0].color = colors 
@@ -80,7 +80,7 @@ const sqlCar = {
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.info, a.img,a.in_color,a.out_color, c.rental_price, c.lease_price 
+            SELECT a.car_code, a.name, a.info, a.img, c.rental_price, c.lease_price 
             FROM db.ds_car_list a 
             LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             LEFT JOIN db.ds_car_detail c ON a.car_code = c.car_code  
@@ -125,7 +125,7 @@ const sqlCar = {
     },
 
     review: async () => {
-        const sql = await review.findAll({where:{expired_at:null,allow:Y},order:[["created_at","DESC"]],raw:true});
+        const sql = await review.findAll({where:{expired_at:null,allow:`Y`},order:[["created_at","DESC"]],raw:true});
         return sql;
     },
 
@@ -149,7 +149,12 @@ const sqlCar = {
     optionList: async (nid) => {
         const sql = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
         return sql
-    } 
+    },
+
+    colorList: async (nid) => {
+        const sql = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
+        return sql;
+    }
     
 };
 
