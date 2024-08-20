@@ -47,6 +47,11 @@ review.init(
             allowNull:true
         },
 
+        allow : {
+            type: DataTypes.TEXT,
+            allowNull:true
+        },
+
         created_at : {
             type : 'TIMESTAMP',
             defaultValue : Sequelize.literal('CURRENT_TIMESTAMP'),

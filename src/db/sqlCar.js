@@ -125,7 +125,7 @@ const sqlCar = {
     },
 
     review: async () => {
-        const sql = await review.findAll({where:{expired_at:null},order:[["created_at","DESC"]],raw:true});
+        const sql = await review.findAll({where:{expired_at:null,allow:Y},order:[["created_at","DESC"]],raw:true});
         return sql;
     },
 
