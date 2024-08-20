@@ -124,8 +124,8 @@ const sqlCar = {
         return sql;
     },
 
-    review: async (offset) => {
-        const sql = await review.findAll({where:{expired_at:null},order:[["created_at","DESC"]],offset:(offset-1)*8,limit:8,raw:true});
+    review: async () => {
+        const sql = await review.findAll({where:{expired_at:null},order:[["created_at","DESC"]],raw:true});
         return sql;
     },
 

@@ -82,7 +82,7 @@ const carController = {
 
     review: async (req,res) => { //리뷰 최신순으로 출력 offset으로 8개씩 출력 offset: (offset-1)*8, limit 8 
         try{
-            const response = await carServices.review(req.query.offset)
+            const response = await carServices.review()
             return res.json(response);
         }catch(err){
             console.log(err)

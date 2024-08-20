@@ -68,8 +68,8 @@ const carServices = {
         }
     },
 
-    review: async (offset) => {
-        const result = await sqlCar.review(offset);
+    review: async () => {
+        const result = await sqlCar.review();
         if(result){
             return result;
         }else{
