@@ -16,6 +16,7 @@ const carServices = {
     hotDeal: async () => { 
         const result = await sqlCar.hotDeal()
         if(result){
+
             return result;
         }else{
             return {sc:400};
@@ -36,8 +37,12 @@ const carServices = {
     },
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
-        const result = await sqlCar.quickFaq(entry,enter,category)
+        const result = await sqlCar.quickDeal(entry,enter,category)
         if(result){
+            for (let i=0; i< result.length ; i++){
+                const option = await sqlCar.optionList(result[i].car_code)
+                result[i].option = option
+            }
             return result;
         }else{
             return {sc:400};

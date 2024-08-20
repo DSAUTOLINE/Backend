@@ -36,6 +36,11 @@ carList.init(
             allowNull:true
         },
 
+        price : {
+            type: DataTypes.INTEGER,
+            allowNull:true
+        },
+
         out_color : {
             type: DataTypes.STRING(45),
             allowNull:true

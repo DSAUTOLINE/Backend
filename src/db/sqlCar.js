@@ -91,7 +91,6 @@ const sqlCar = {
         const sql = await sequelize.query(sqlQuery, {
             type: Sequelize.QueryTypes.SELECT
         });
-        console.log(sql)
         return sql;
     },
 
@@ -143,7 +142,15 @@ const sqlCar = {
     counseling: async (body) => {
         const sql = await counselingList.create(body);
         return sql;
-    }
+    },
+
+
+    //d 
+    optionList: async (nid) => {
+        const sql = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
+        return sql
+    } 
+    
 };
 
 export default sqlCar;
