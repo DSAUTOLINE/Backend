@@ -155,7 +155,8 @@ const sqlCar = {
             SELECT a.name, b.enter 
             FROM db.ds_car_list a 
             LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
-            WHERE a.expired_at IS NULL;
+            WHERE a.expired_at IS NULL
+            GROUP BY a.name, b.enter;
         `;
         const sql = await sequelize.query(sqlQuery, {
             type: Sequelize.QueryTypes.SELECT

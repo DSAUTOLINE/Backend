@@ -1,4 +1,5 @@
 import sqlCar from "../db/sqlCar.js";
+
 const carServices = {
     home: async () => {
         
@@ -132,6 +133,7 @@ const carServices = {
         }else{
             return {sc:400};
         };
-    }
+    },
+
 }
 export default carServices;

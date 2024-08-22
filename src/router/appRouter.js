@@ -3,6 +3,7 @@ import adminController from "../controllers/adminController.js";
 import carController from "../controllers/carController.js";
 import counselingController from "../controllers/counselingController.js";
 import reviewController from "../controllers/reviewController.js";
+import { upload } from "../middleware/imageUpload.js";
 const router = express.Router();
 
 router.get(
@@ -75,6 +76,11 @@ router.get(
     carController.optionList
 
 )
+
+router.post('/image', upload.single('file'),async (req, res) => {
+    console.log(req.file)
+    return res.json({sc:200})
+});
 export default router;
 
 

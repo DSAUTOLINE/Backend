@@ -22,6 +22,16 @@ estimate.init(
             allowNull : true
         },
 
+        car_name : {
+            type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
+        enter : {
+            type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
         out_color : {
             type: DataTypes.STRING(45),
             allowNull : true

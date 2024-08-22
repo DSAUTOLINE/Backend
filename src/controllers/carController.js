@@ -138,6 +138,18 @@ const carController = {
             console.log(err)
             return res.json({sc:400})
         }
+    },
+
+    imgUpload: async (req,res) => {
+        try {
+            const images = req.file
+            const imageKey = images.key
+            const imageUrl = `https://dsautoline-s3-bucket.s3.ap-northeast-2.amazonaws.com/${imageKey}`;
+            res.json({ imageUrl });
+        } catch (err) {
+            console.error('Error during image upload:', err);
+            res.status(500).json({ message: 'Internal Server Error' });
+        }
     }
 }
 export default carController;
