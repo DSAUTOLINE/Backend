@@ -33,7 +33,12 @@ const carServices = {
     },
 
     estimateInsert: async (body) => {
-
+        const result = await sqlCar.estimateInsert(body)
+        if(result){
+            return {sc:200};
+        }else{
+            return {sc:400};
+        }
     },
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
@@ -83,6 +88,8 @@ const carServices = {
         const result = await sqlCar.reviewDetail(nid);
         if(result){
             result.sc=200;
+            const orderReview = await sqlCar.reviewRendom(result.seq,result.enter)
+            result.order = orderReview;
             return result;
         }else{
             return {sc:400};
@@ -98,12 +105,32 @@ const carServices = {
         };
     },
 
+    reviewSelect: async () => {
+        const result = await sqlCar.reviewSelect();
+        if (result){
+            result.sc = 200
+            return result
+        }else{
+            return result
+        }
+    },
+
     counseling: async (body) => {
         const result = await sqlCar.counseling(body);
         if(result){
             return {sc:200};
         }else{
-            return {Sc:400};
+            return {sc:400};
+        };
+    },
+
+    optionList: async (nid) => {
+        const result = await sqlCar.optionList(nid);
+        if(result){
+            result.sc=200;
+            return result;
+        }else{
+            return {sc:400};
         };
     }
 }

@@ -75,7 +75,13 @@ const sqlCar = {
     },
 
     estimateInsert: async (body) => {
-
+        const options = body.options 
+        delete body.options
+        const sql = await estimate.create(body)
+        for(let i = 0; i<options.length;i++){
+            await estimateOptions.create({order_num:sql.order_num,option:options[i]})
+        }
+        return sql;
     },
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
@@ -139,8 +145,28 @@ const sqlCar = {
         return sql;
     },
 
+    reviewRendom: async (nid,enter) => {
+        const sql = await review.findAll({where:{expired_at:null,allow:`Y`,enter:enter,seq: { [Op.ne] : nid }},order:sequelize.random(),limit:10,raw:true});
+        return sql;
+    },
+
+    reviewSelect: async () => {
+        const sqlQuery = `
+            SELECT a.name, b.enter 
+            FROM db.ds_car_list a 
+            LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
+            WHERE a.expired_at IS NULL;
+        `;
+        const sql = await sequelize.query(sqlQuery, {
+            type: Sequelize.QueryTypes.SELECT
+        });
+        return sql;
+        return sql;
+    },
+
     counseling: async (body) => {
         const sql = await counselingList.create(body);
+        console.log(sql.seq)
         return sql;
     },
 
@@ -153,6 +179,17 @@ const sqlCar = {
 
     colorList: async (nid) => {
         const sql = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
+        return sql;
+    },
+
+    optionList: async (nid) => {
+        const sql = {}
+        const colors = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
+        const trims = await carTrim.findAll({attributes:['trim1','trim2','price'],where:{car_code:nid},raw:true})
+        const options = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
+        sql.color = colors 
+        sql.trim = trims 
+        sql.option = options
         return sql;
     }
     

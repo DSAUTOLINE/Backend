@@ -27,7 +27,7 @@ counselingList.init(
             allowNull : true
         },
 
-        car : {
+        car_name : {
             type: DataTypes.STRING(45),
             allowNull:true
         },

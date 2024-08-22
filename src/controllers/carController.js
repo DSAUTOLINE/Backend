@@ -110,9 +110,29 @@ const carController = {
         }
     },
 
+    reviewSelect: async (req,res) => {
+        try{
+            const response = await carServices.reviewSelect();
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
     counseling: async (req,res) => {
         try{
             const response = await carServices.counseling(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    optionList: async (req,res) => {
+        try{
+            const response = await carServices.optionList(req.params.nid)
             return res.json(response);
         }catch(err){
             console.log(err)

@@ -60,9 +60,20 @@ router.post( //리뷰추가
     carController.reviewInsert
 )
 
+router.get( //리뷰추가 
+    "/reviewSelect",
+    carController.reviewSelect
+)
+
 router.post( //빠른간편상담
     "/counseling",
     carController.counseling
+)
+
+router.get(
+    "/optionList/:nid",
+    carController.optionList
+
 )
 export default router;
 

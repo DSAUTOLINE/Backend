@@ -12,7 +12,8 @@ export class estimate extends Model{
 estimate.init(
     {
         order_num : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
+            autoIncrement:true,
             primaryKey : true
         },
 
@@ -21,7 +22,7 @@ estimate.init(
             allowNull : true
         },
 
-        incolor : {
+        out_color : {
             type: DataTypes.STRING(45),
             allowNull : true
         },
@@ -32,11 +33,6 @@ estimate.init(
         },
 
         trim2 : {
-            type: DataTypes.STRING(45),
-            allowNull:true
-        },
-
-        option_code : {
             type: DataTypes.STRING(45),
             allowNull:true
         },
@@ -57,7 +53,7 @@ estimate.init(
         },
 
         deposit_price : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull:true
         },
 
@@ -66,12 +62,12 @@ estimate.init(
             allowNull:true
         },
 
-        annual_mileage : {
+        age : {
             type: DataTypes.STRING(45),
             allowNull:true
         },
 
-        age : {
+        annual_mileage : {
             type: DataTypes.STRING(45),
             allowNull:true
         },
