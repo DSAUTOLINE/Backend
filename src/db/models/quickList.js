@@ -22,7 +22,7 @@ quickList.init(
             allowNull : true
         },
 
-        color : {
+        out_color : {
             type: DataTypes.STRING(45),
             allowNull : true
         },

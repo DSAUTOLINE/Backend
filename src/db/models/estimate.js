@@ -32,6 +32,11 @@ estimate.init(
             allowNull : true
         },
 
+        in_color : {
+            type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
         out_color : {
             type: DataTypes.STRING(45),
             allowNull : true
@@ -96,6 +101,12 @@ estimate.init(
             type: DataTypes.STRING(45),
             allowNull:true
         },
+
+        price : {
+            type: DataTypes.STRING(45),
+            allowNull:true
+        },
+
 
         created_at : {
             type : 'TIMESTAMP',

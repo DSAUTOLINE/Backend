@@ -86,7 +86,7 @@ const sqlCar = {
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.info, a.img,a.in_color,a.out_color,a.price,c.rental_price, c.lease_price, d.seq
+            SELECT a.car_code, a.name, a.info, a.img,a.in_color,a.price,c.rental_price, c.lease_price, d.seq,d.out_color,d.trim1,d.trim2
             FROM db.ds_car_list a 
             LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             LEFT JOIN db.ds_car_detail c ON a.car_code = c.car_code  
@@ -212,7 +212,7 @@ const sqlCar = {
     },
 
     quickEstimate: async (nid) => {
-        const sqlQuery =`SELECT a.car_code, a.name, a.info, a.img, a.price,  a.category, b.*, c.enter, c.entry, d.color, d.trim1, d.trim2 FROM db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
+        const sqlQuery =`SELECT a.car_code, a.name, a.info, a.img, a.price,  a.category, b.*, c.enter, c.entry, d.out_color, d.trim1, d.trim2 FROM db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
         LEFT JOIN db.manufacturer c ON a.enter_code = c.enter_code  LEFT JOIN db.ds_quick_list d on a.car_code = d.car_code
         where a.car_code = "${nid}" and a.expired_at is null;`
         const sql = await sequelize.query(sqlQuery, {
