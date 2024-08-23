@@ -62,7 +62,7 @@ const carController = {
 
     event: async (req,res) => {// 이벤트페이지 ?type = 0 or 1 null notnull 
         try{
-            const response = await carServices.event(req.query.type)
+            const response = await carServices.event(req.query.type,req.query.active)
             return res.json(response);
         }catch(err){
             console.log(err)

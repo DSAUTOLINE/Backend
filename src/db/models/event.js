@@ -44,7 +44,12 @@ event.init(
         },
 
         type : {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING(45),
+            allowNull:true
+        },
+
+        state : {
+            type: DataTypes.STRING(45),
             allowNull:true
         },
 

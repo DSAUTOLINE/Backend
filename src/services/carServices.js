@@ -55,8 +55,8 @@ const carServices = {
         }
     },
 
-    event: async (type) => { //offset 0 or 1 로 진행중 종료된 나오게 
-        const result = await sqlCar.event(type);
+    event: async (type,active) => { //offset 0 or 1 로 진행중 종료된 나오게 
+        const result = await sqlCar.event(type,active);
         if(result){
             return result;
         }else{

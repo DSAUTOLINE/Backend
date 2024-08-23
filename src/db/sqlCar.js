@@ -91,7 +91,7 @@ const sqlCar = {
             LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             LEFT JOIN db.ds_car_detail c ON a.car_code = c.car_code  
             LEFT JOIN db.ds_quick_list d on a.car_code = d.car_code
-            WHERE b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
+            WHERE b.entry LIKE "%${entry}%" AND b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
             order by a.created_at DESC;
         `;
         const sql = await sequelize.query(sqlQuery, {
@@ -114,25 +114,31 @@ const sqlCar = {
         return sql;
     },
 
-    event: async (type) => { //offset 0 or 1 로 진행중 종료된 나오게 
+    event: async (type,active) => { //offset 0 or 1 로 진행중 종료된 나오게 
         const seoulTime = moment.tz("Asia/Seoul").format('YYYY-MM-DD');
         console.log(seoulTime)
         let condition;
-
-        if (type == 0) {
+        console.log(type,active)
+        if (active == 0) {
             condition = { 
                 end_date: { 
                     [Op.gte]: seoulTime 
+                },
+                type: {
+                    [Op.like]: `%${type}%` // SQL의 LIKE '%%'와 동일
                 },
                 expired_at:null
             };
             const sql = await event.findAll({where:condition,raw:true})
             return sql
-        } else if (type == 1) {
+        } else if (active == 1) {
             
             condition = { 
                 end_date: { 
                     [Op.lt]: seoulTime 
+                },
+                type: {
+                    [Op.like]: `%${type}%` // SQL의 LIKE '%%'와 동일
                 },
                 expired_at:null
             };
