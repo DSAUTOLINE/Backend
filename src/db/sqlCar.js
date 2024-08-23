@@ -147,9 +147,14 @@ const sqlCar = {
         return sql;
     },
 
-    review: async () => {
-        const sql = await review.findAll({where:{expired_at:null,allow:`Y`},order:[["created_at","DESC"]],raw:true});
-        return sql;
+    review: async (type) => {
+        if (type == 0){
+            const sql = await review.findAll({where:{expired_at:null,allow:`Y`},order:[["created_at","DESC"]],raw:true});
+            return sql;
+        }else if (type == 1){
+            const sql = await review.findAll({where:{expired_at:null,allow:`N`},order:[["created_at","DESC"]],raw:true});
+            return sql;
+        }
     },
 
     reviewDetail: async (nid) => { //파라미터 넘겨받기 
