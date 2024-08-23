@@ -22,6 +22,11 @@ quickList.init(
             allowNull : true
         },
 
+        in_color : {
+            type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
         out_color : {
             type: DataTypes.STRING(45),
             allowNull : true
@@ -34,6 +39,11 @@ quickList.init(
 
         trim2 : {
             type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
+        price : {
+            type: DataTypes.INTEGER,
             allowNull : true
         },
 

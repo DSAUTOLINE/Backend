@@ -49,22 +49,27 @@ carDetail.init(
         },
 
         gasoline : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TINYINT,
             allowNull:true
         },
 
         diesel : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TINYINT,
             allowNull:true
         },
 
         lpg : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TINYINT,
             allowNull:true
         },
 
         hybrid : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TINYINT,
+            allowNull:true
+        },
+
+        electric : {
+            type: DataTypes.TINYINT,
             allowNull:true
         },
 

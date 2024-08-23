@@ -212,19 +212,19 @@ const sqlCar = {
     },
 
     quickEstimate: async (nid) => {
-        const sqlQuery =`SELECT a.car_code, a.name, a.info, a.img, a.price,  a.category, b.*, c.enter, c.entry, d.out_color, d.trim1, d.trim2 FROM db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
+        const sqlQuery =`SELECT a.car_code, a.name, a.info, a.img, d.price,  a.category, b.*, c.enter, c.entry,c.logo_img, d.in_color,d.out_color,d.rgb,d.trim1, d.trim2 FROM db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
         LEFT JOIN db.manufacturer c ON a.enter_code = c.enter_code  LEFT JOIN db.ds_quick_list d on a.car_code = d.car_code
         where a.car_code = "${nid}" and a.expired_at is null;`
         const sql = await sequelize.query(sqlQuery, {
             type: Sequelize.QueryTypes.SELECT
         });
-        const options = await quickListOptions.findAll({attributes:['name','img'],where:{quick_num:sql[0].seq,expired_at:null},raw:true})
+        const options = await quickListOptions.findAll({attributes:['name','img','price'],where:{quick_num:sql[0].seq,expired_at:null},raw:true})
         sql[0].option = options
         return sql[0]
     },
 
     quickOption: async (nid) => {
-        const sql = await quickListOptions.findAll({attributes:['name','img'],where:{quick_num:nid,expired_at:null},raw:true})
+        const sql = await quickListOptions.findAll({attributes:['name','img','price'],where:{quick_num:nid,expired_at:null},raw:true})
         return sql
     },
 

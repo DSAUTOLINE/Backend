@@ -32,6 +32,11 @@ quickListOptions.init(
             allowNull : true
         },
 
+        price : {
+            type: DataTypes.INTEGER,
+            allowNull : true
+        },
+
         created_at : {
             type : 'TIMESTAMP',
             defaultValue : Sequelize.literal('CURRENT_TIMESTAMP'),
