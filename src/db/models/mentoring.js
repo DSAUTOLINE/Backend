@@ -1,7 +1,7 @@
 import sequelize from "./index.js";
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export class quickList extends Model{
+export class mentoring extends Model{
     //buffer에 저장하면 binary 형태로 저장이 되기 때문에 json type으로 다시 변환시켜주기 위함
     toJSON(){
         return super.toJSON();
@@ -9,7 +9,7 @@ export class quickList extends Model{
 
 }
 
-quickList.init(
+mentoring.init(
     {
         seq : {
             type: DataTypes.INTEGER,
@@ -17,24 +17,19 @@ quickList.init(
             primaryKey : true
         },
 
-        car_code : {
+        mento : {
             type: DataTypes.STRING(45),
             allowNull : true
         },
 
-        color : {
+        name : {
             type: DataTypes.STRING(45),
             allowNull : true
         },
 
-        trim1 : {
+        phone : {
             type: DataTypes.STRING(45),
-            allowNull : true
-        },
-
-        trim2 : {
-            type: DataTypes.STRING(45),
-            allowNull : true
+            allowNull:true
         },
 
         created_at : {
@@ -51,8 +46,8 @@ quickList.init(
 
     {
         sequelize,
-        modelName : "quickList",
-        tableName : "ds_quick_list",
+        modelName : "mentoring",
+        tableName : "ds_mentoring",
         timestamps : false
     }
 )

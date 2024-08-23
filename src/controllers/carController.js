@@ -150,6 +150,36 @@ const carController = {
             console.error('Error during image upload:', err);
             res.status(500).json({ message: 'Internal Server Error' });
         }
+    },
+
+    ranking: async (req,res) => {
+        try{
+            const response = await carServices.ranking()
+            return res.json(response)
+        }catch(err){
+            console.log(err);
+            res.status(500).json({ sc:400});
+        }
+    },
+
+    quickEstimate: async (req,res) => {
+        try{
+            const response = await carServices.quickEstimate(req.params.nid)
+            return res.json(response)
+        }catch(err){
+            console.log(err);
+            res.status(500).json({ sc:400});
+        }
+    },
+
+    mentoring: async (req,res) => {
+        try{
+            const response = await carServices.mentoring(req.body)
+            return res.json(response)
+        }catch(err){
+            console.log(err);
+            res.status(500).json({ sc:400});
+        }
     }
 }
 export default carController;

@@ -77,10 +77,33 @@ router.get(
 
 )
 
-router.post('/image', upload.single('file'),async (req, res) => {
-    console.log(req.file)
-    return res.json({sc:200})
+router.get(
+    "/ranking",
+    carController.ranking
+
+)
+
+router.get(
+    "/quickEstimate/:nid",
+    carController.quickEstimate
+)
+
+router.post(
+    "/mentoring",
+    carController.mentoring
+)
+
+router.post('/image', upload.single('file'),async (req, res) => { //수정
+    try{
+        console.log(req.file)
+        return res.json({sc:200})
+    }catch(err){
+        console.log(req.file)
+        return res.json({sc:400})
+    }
 });
+
+
 export default router;
 
 

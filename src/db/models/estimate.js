@@ -92,6 +92,11 @@ estimate.init(
             allowNull:true
         },
 
+        type : {
+            type: DataTypes.STRING(45),
+            allowNull:true
+        },
+
         created_at : {
             type : 'TIMESTAMP',
             defaultValue : Sequelize.literal('CURRENT_TIMESTAMP'),

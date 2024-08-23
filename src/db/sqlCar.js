@@ -16,8 +16,8 @@ import { manufacturer } from "./models/manufacturer.js"
 import { menu } from "./models/menu.js"
 import { quickList } from "./models/quickList.js"
 import { review } from "./models/review.js"
-
-
+import { quickListOptions } from "./models/quickListOptions.js";
+import { mentoring } from "./models/mentoring.js";
 const sqlCar = {
     updateFcm: async (uid,token,pid) => {
         const user = 1
@@ -86,13 +86,27 @@ const sqlCar = {
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.info, a.img, c.rental_price, c.lease_price 
+            SELECT a.car_code, a.name, a.info, a.img,a.in_color,a.out_color,a.price,c.rental_price, c.lease_price, d.seq
             FROM db.ds_car_list a 
             LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             LEFT JOIN db.ds_car_detail c ON a.car_code = c.car_code  
             LEFT JOIN db.ds_quick_list d on a.car_code = d.car_code
             WHERE b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
             order by a.created_at DESC;
+        `;
+        const sql = await sequelize.query(sqlQuery, {
+            type: Sequelize.QueryTypes.SELECT
+        });
+        return sql;
+    },
+
+    ranking: async () => { //카테고리랑 브랜드 검색 
+        const sqlQuery = `
+            select a.car_code, a.name,a.info,a.img, b.rental_price, b.lease_price 
+            from db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
+            where a.car_code in 
+            (SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc  ) 
+            limit 4 ;;
         `;
         const sql = await sequelize.query(sqlQuery, {
             type: Sequelize.QueryTypes.SELECT
@@ -112,6 +126,8 @@ const sqlCar = {
                 },
                 expired_at:null
             };
+            const sql = await event.findAll({where:condition,raw:true})
+            return sql
         } else if (type == 1) {
             
             condition = { 
@@ -120,9 +136,10 @@ const sqlCar = {
                 },
                 expired_at:null
             };
+            const sql = await event.findAll({where:condition,raw:true})
+            return sql
         }
-        const sql = await event.findAll({where:condition,raw:true})
-        return sql
+        return 0
     },
 
     eventDetail: async (nid) => {  //파라미터 넘겨받기 
@@ -191,6 +208,28 @@ const sqlCar = {
         sql.color = colors 
         sql.trim = trims 
         sql.option = options
+        return sql;
+    },
+
+    quickEstimate: async (nid) => {
+        const sqlQuery =`SELECT a.car_code, a.name, a.info, a.img, a.price,  a.category, b.*, c.enter, c.entry, d.color, d.trim1, d.trim2 FROM db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
+        LEFT JOIN db.manufacturer c ON a.enter_code = c.enter_code  LEFT JOIN db.ds_quick_list d on a.car_code = d.car_code
+        where a.car_code = "${nid}" and a.expired_at is null;`
+        const sql = await sequelize.query(sqlQuery, {
+            type: Sequelize.QueryTypes.SELECT
+        });
+        const options = await quickListOptions.findAll({attributes:['name','img'],where:{quick_num:sql[0].seq,expired_at:null},raw:true})
+        sql[0].option = options
+        return sql[0]
+    },
+
+    quickOption: async (nid) => {
+        const sql = await quickListOptions.findAll({attributes:['name','img'],where:{quick_num:nid,expired_at:null},raw:true})
+        return sql
+    },
+
+    mentoring: async (body) => {
+        const sql = await mentoring.create(body);
         return sql;
     }
     

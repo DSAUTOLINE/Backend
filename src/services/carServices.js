@@ -46,10 +46,8 @@ const carServices = {
         const result = await sqlCar.quickDeal(entry,enter,category)
         if(result){
             for (let i=0; i< result.length ; i++){
-                const option = await sqlCar.optionList(result[i].car_code)
-                const color = await sqlCar.colorList(result[i].car_code)
+                const option = await sqlCar.quickOption(result[i].seq)
                 result[i].option = option
-                result[i].color = color
             }
             return result;
         }else{
@@ -130,6 +128,33 @@ const carServices = {
         if(result){
             result.sc=200;
             return result;
+        }else{
+            return {sc:400};
+        };
+    },
+
+    ranking: async () => {
+        const result = await sqlCar.ranking();
+        if(result){
+            return result;
+        }else{
+            return {sc:400};
+        };
+    },
+
+    quickEstimate: async (nid) => {
+        const result = await sqlCar.quickEstimate(nid);
+        if(result){
+            return result;
+        }else{
+            return {sc:400};
+        };
+    },
+
+    mentoring: async (body) => {
+        const result = await sqlCar.mentoring(body);
+        if(result){
+            return {sc:200};
         }else{
             return {sc:400};
         };
