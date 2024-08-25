@@ -1,11 +1,11 @@
 import adminServices from "../services/adminServices.js";
 
 const adminController = {
-    ansimi: async (req,res) => {
+    eventInsert: async (req,res) => {
         try{
             console.log(req.body)
-            // const response = await ansimiService.ansimi(req.body)
-            // return res.json(response);
+            const response = await adminServices.eventInsert(req.body)
+            return res.json(response);
         }catch(err){
             console.log(err)
             return res.json({sc:400})

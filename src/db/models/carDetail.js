@@ -73,6 +73,11 @@ carDetail.init(
             allowNull:true
         },
 
+        h2 : {
+            type: DataTypes.TINYINT,
+            allowNull:true
+        },
+
         min_cc : {
             type: DataTypes.STRING(45),
             allowNull:true

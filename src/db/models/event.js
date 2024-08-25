@@ -37,14 +37,8 @@ event.init(
             allowNull:true
         },
 
-        
-        text : {
-            type: DataTypes.TEXT,
-            allowNull:true
-        },
-
         type : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TINYINT,
             allowNull:true
         },
 

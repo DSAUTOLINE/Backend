@@ -103,7 +103,11 @@ router.post('/image', upload.single('file'),async (req, res) => { //수정
     }
 });
 
-
+//관리자 
+router.post( //리뷰 상세 
+    "/eventInsert",
+    adminController.eventInsert
+)
 export default router;
 
 
