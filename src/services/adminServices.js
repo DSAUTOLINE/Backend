@@ -103,10 +103,62 @@ const adminServices = {
     },   
 
     CurrentSituation: async () => {
-        const result = await sqlReview.CurrentSituation();
+        const result = await sqlReview.currentSituation();
         if(result){
             result.sc = 200
             return result;
+        }else{
+            return {sc:400};
+        }
+    },
+
+    
+    carInquiryDelete: async (nid) => {  
+        const result = await sqlReview.carInquiryDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+    carInquiryChange: async (body) => {
+        const result = await sqlReview.carInquiryChange(body.seq,body.allow);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
+    counselingInquiryDelete: async (nid) => {
+        const result = await sqlReview.counselingInquiryDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+    counselingInquiryChange: async (body) => {
+        const result = await sqlReview.counselingInquiryChange(body.seq,body.allow);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
+    mentoInquiryDelete: async (nid) => {
+        const result = await sqlReview.mentoInquiryDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+    mentoInquiryChange: async (body) => {
+        const result = await sqlReview.mentoInquiryChange(body.seq,body.allow);
+        if(result){
+            return {sc:200}
         }else{
             return {sc:400};
         }

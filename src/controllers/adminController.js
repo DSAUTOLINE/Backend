@@ -115,6 +115,63 @@ const adminController = {
             return res.json({sc:400})
         }
     },
+
+    carInquiryDelete: async (req,res) => {
+        try{
+            const response = await adminServices.carInquiryDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+    carInquiryChange: async (req,res) => {
+        try{
+            const response = await adminServices.carInquiryChange(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    counselingInquiryDelete: async (req,res) => {
+        try{
+            const response = await adminServices.counselingInquiryDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+    counselingInquiryChange: async (req,res) => {
+        try{
+            const response = await adminServices.counselingInquiryChange(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    mentoInquiryDelete: async (req,res) => {
+        try{
+            const response = await adminServices.mentoInquiryDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+    mentoInquiryChange: async (req,res) => {
+        try{
+            const response = await adminServices.mentoInquiryChange(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
     
 }
 export default adminController;

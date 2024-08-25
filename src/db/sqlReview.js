@@ -98,7 +98,7 @@ const sqlReview = {
     },
 
     counselingInquiry: async (type,active) => {
-        if (active == 0) {
+        if (active == 0) { 
             const condition = { 
                 allow:'Y',
                 expired_at:null
@@ -137,7 +137,7 @@ const sqlReview = {
         return 0
     },
 
-    CurrentSituation: async () => {
+    currentSituation: async () => {
         const sql1 = await mentoring.findAll({
             attributes: [
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'mento_y'],
@@ -173,7 +173,37 @@ const sqlReview = {
             raw: true
         });
         return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0]}
-    }
+    },
+    
+    carInquiryDelete: async (nid) => {
+        const sql = await estimate.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    },
+    carInquiryChange: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await estimate.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    counselingInquiryDelete: async (nid) => {
+        const sql = await counselingList.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    },
+    counselingInquiryChange: async (nid,allow) => {  
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await counselingList.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    mentoInquiryDelete: async (nid) => {
+        const sql = await mentoring.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    },
+    mentoInquiryChange: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
 
 }
 

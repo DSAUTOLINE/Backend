@@ -163,6 +163,36 @@ router.get( //리뷰 상세
     "/currentSituation",
     adminController.CurrentSituation
 )
+
+router.delete( //리뷰 상세 
+    "/carInquiryDelete/:nid",
+    adminController.carInquiryDelete
+)
+
+router.post( //리뷰 상세 
+    "/carInquiryChange",
+    adminController.carInquiryChange
+)
+
+router.delete( //리뷰 상세 
+    "/counselingInquiryDelete/:nid",
+    adminController.counselingInquiryDelete
+)
+
+router.post( //리뷰 상세 
+    "/counselingInquiryChange",
+    adminController.counselingInquiryChange
+)
+
+router.delete( //리뷰 상세 
+    "/mentoInquiryDelete/:nid ",
+    adminController.mentoInquiryDelete
+)
+
+router.post( //리뷰 상세 
+    "/mentoInquiryChange",
+    adminController.mentoInquiryChange
+)
 export default router;
 
 
