@@ -134,6 +134,11 @@ router.post( //리뷰 상세
     adminController.allColorInsert
 )
 
+router.delete( //리뷰 상세 
+    "/allColorDelete/:nid",
+    adminController.allColorDelete
+)
+
 router.get( //리뷰 상세 
     "/allOption",
     adminController.allOption
@@ -142,6 +147,11 @@ router.get( //리뷰 상세
 router.post( //리뷰 상세 
     "/allOptionInsert",
     adminController.allOptionInsert
+)
+
+router.delete( //리뷰 상세 
+    "/allOptionDelete/:nid",
+    adminController.allOptionDelete
 )
 export default router;
 

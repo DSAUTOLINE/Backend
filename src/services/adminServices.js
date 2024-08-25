@@ -48,6 +48,14 @@ const adminServices = {
             return {sc:400};
         }
     },
+    allColorDelete: async (nid) => {
+        const result = await sqlReview.allColorDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
     allOption: async () => {
         const result = await sqlReview.allOption();
         if(result){
@@ -63,6 +71,14 @@ const adminServices = {
         }else{
             return {sc:400};
         }
-    }                       
+    },
+    allOptionDelete: async (nid) => {
+        const result = await sqlReview.allOptionDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },                       
 }
 export default adminServices;

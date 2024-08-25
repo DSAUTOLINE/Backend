@@ -48,6 +48,11 @@ const sqlReview = {
         return sql;
     },
 
+    allColorDelete: async (nid) => {
+        const sql = await allColor.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
     allOption: async () => {
         const sql = await allOption.findAll({where:{expired_at:null},raw:true})
         return sql;
@@ -55,6 +60,11 @@ const sqlReview = {
 
     allOptionInsert: async (body) => {
         const sql = await allOption.create(body)
+        return sql;
+    },
+
+    allOptionDelete: async (nid) => {
+        const sql = await allOption.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
         return sql;
     },
 

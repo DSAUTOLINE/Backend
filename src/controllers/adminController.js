@@ -58,7 +58,15 @@ const adminController = {
             return res.json({sc:400})
         }
     },
-
+    allColorDelete: async (req,res) => {
+        try{
+            const response = await adminServices.allColorDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
     allOption: async (req,res) => {
         try{
             const response = await adminServices.allOption()
@@ -72,6 +80,15 @@ const adminController = {
     allOptionInsert: async (req,res) => {
         try{
             const response = await adminServices.allOptionInsert(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+    allOptionDelete: async (req,res) => {
+        try{
+            const response = await adminServices.allOptionDelete(req.params.nid)
             return res.json(response);
         }catch(err){
             console.log(err)
