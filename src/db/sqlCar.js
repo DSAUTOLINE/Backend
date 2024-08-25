@@ -127,6 +127,7 @@ const sqlCar = {
                 type: {
                     [Op.like]: `%${type}%` // SQL의 LIKE '%%'와 동일
                 },
+                state:'out',
                 expired_at:null
             };
             const sql = await event.findAll({where:condition,raw:true})
@@ -140,6 +141,7 @@ const sqlCar = {
                 type: {
                     [Op.like]: `%${type}%` // SQL의 LIKE '%%'와 동일
                 },
+                state:'out',
                 expired_at:null
             };
             const sql = await event.findAll({where:condition,raw:true})
@@ -149,7 +151,7 @@ const sqlCar = {
     },
 
     eventDetail: async (nid) => {  //파라미터 넘겨받기 
-        const sql = await event.findOne({where:{seq:nid,expired_at:null},raw:true});
+        const sql = await event.findOne({where:{seq:nid,expired_at:null,state:"in"},raw:true});
         return sql;
     },
 
