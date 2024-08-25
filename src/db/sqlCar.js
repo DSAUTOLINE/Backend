@@ -133,7 +133,7 @@ const sqlCar = {
                 state:'out',
                 expired_at:null
             };
-            const sql = await event.findAll({where:condition,raw:true})
+            const sql = await event.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
             return sql
         } else if (active == 1) {
             
@@ -150,7 +150,7 @@ const sqlCar = {
                 state:'out',
                 expired_at:null
             };
-            const sql = await event.findAll({where:condition,raw:true})
+            const sql = await event.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
             return sql
         }
         return 0
