@@ -123,6 +123,26 @@ router.post( //리뷰 상세
     "/reviewChange",
     adminController.reviewChange
 )
+
+router.get( //리뷰 상세 
+    "/allColor",
+    adminController.allColor
+)
+
+router.post( //리뷰 상세 
+    "/allColorInsert",
+    adminController.allColorInsert
+)
+
+router.get( //리뷰 상세 
+    "/allOption",
+    adminController.allOption
+)
+
+router.post( //리뷰 상세 
+    "/allOptionInsert",
+    adminController.allOptionInsert
+)
 export default router;
 
 

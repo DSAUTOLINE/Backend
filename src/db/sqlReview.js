@@ -18,6 +18,8 @@ import { quickList } from "./models/quickList.js"
 import { review } from "./models/review.js"
 import { quickListOptions } from "./models/quickListOptions.js";
 import { mentoring } from "./models/mentoring.js";
+import { allColor } from "./models/allColor.js";
+import { allOption } from "./models/allOption.js";
 const sqlReview = {
     eventInsert: async (body) => {
         await event.create(body)
@@ -33,6 +35,26 @@ const sqlReview = {
     reviewChange: async (nid,allow) => {
         const change = allow=='Y'? 'N' : 'Y'
         const sql = await review.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    allColor: async () => {
+        const sql = await allColor.findAll({where:{expired_at:null},raw:true})
+        return sql;
+    },
+
+    allColorInsert: async (body) => {
+        const sql = await allColor.create(body)
+        return sql;
+    },
+
+    allOption: async () => {
+        const sql = await allOption.findAll({where:{expired_at:null},raw:true})
+        return sql;
+    },
+
+    allOptionInsert: async (body) => {
+        const sql = await allOption.create(body)
         return sql;
     },
 

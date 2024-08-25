@@ -38,6 +38,46 @@ const adminController = {
             return res.json({sc:400})
         }
     },
+
+    allColor: async (req,res) => {
+        try{
+            const response = await adminServices.allColor(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    allColorInsert: async (req,res) => {
+        try{
+            const response = await adminServices.allColorInsert(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    allOption: async (req,res) => {
+        try{
+            const response = await adminServices.allOption()
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    allOptionInsert: async (req,res) => {
+        try{
+            const response = await adminServices.allOptionInsert(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
     
 }
 export default adminController;
