@@ -176,12 +176,12 @@ const sqlReview = {
     },
     
     carInquiryDelete: async (nid) => {
-        const sql = await estimate.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        const sql = await estimate.update({expired_at:Sequelize.literal("NOW()")},{where:{order_num:nid},raw:true})
         return sql;
     },
     carInquiryChange: async (nid,allow) => {
         const change = allow=='Y'? 'N' : 'Y'
-        const sql = await estimate.update({allow:change},{where:{seq:nid},raw:true})
+        const sql = await estimate.update({allow:change},{where:{order_num:nid},raw:true})
         return sql;
     },
 

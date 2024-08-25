@@ -184,8 +184,8 @@ router.post( //리뷰 상세
     adminController.counselingInquiryChange
 )
 
-router.delete( //리뷰 상세 
-    "/mentoInquiryDelete/:nid ",
+router.delete( //리뷰 상세  
+    "/mentoInquiryDelete/:nid",
     adminController.mentoInquiryDelete
 )
 
