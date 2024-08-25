@@ -17,6 +17,11 @@ event.init(
             primaryKey : true
         },
 
+        event_num : {
+            type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
         title : {
             type: DataTypes.STRING(45),
             allowNull : true

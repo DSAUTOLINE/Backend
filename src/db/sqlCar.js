@@ -151,7 +151,7 @@ const sqlCar = {
     },
 
     eventDetail: async (nid) => {  //파라미터 넘겨받기 
-        const sql = await event.findOne({where:{seq:nid,expired_at:null,state:"in"},raw:true});
+        const sql = await event.findOne({where:{event_num:nid,expired_at:null,state:"in"},raw:true});
         return sql;
     },
 
