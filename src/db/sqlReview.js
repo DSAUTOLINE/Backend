@@ -1,4 +1,4 @@
-import { Sequelize,Op } from "sequelize";
+import { Sequelize,Op, where } from "sequelize";
 import sequelize from "./models/index.js";
 import moment from 'moment-timezone';
 import { carColor } from "./models/carColor.js";
@@ -21,6 +21,10 @@ import { mentoring } from "./models/mentoring.js";
 const sqlReview = {
     eventInsert: async (body) => {
         await event.create(body)
+    },
+    eventDelete: async (nid) => {
+        const sql = await event.update({expired_at:Sequelize.literal("NOW()")},{where:{event_num:nid},raw:true})
+        return sql;
     }
 }
 

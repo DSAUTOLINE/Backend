@@ -108,6 +108,11 @@ router.post( //리뷰 상세
     "/eventInsert",
     adminController.eventInsert
 )
+
+router.delete( //리뷰 상세 
+    "/eventDelete/:nid",
+    adminController.eventDelete
+)
 export default router;
 
 

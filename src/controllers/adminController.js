@@ -10,6 +10,16 @@ const adminController = {
             console.log(err)
             return res.json({sc:400})
         }
-    },
+    },   
+    eventDelete: async (req,res) => {
+        try{
+            const response = await adminServices.eventDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    }, 
+    
 }
 export default adminController;

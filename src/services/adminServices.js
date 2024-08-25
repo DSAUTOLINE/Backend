@@ -6,6 +6,14 @@ const adminServices = {
         }
         return {sc:200};
 
+    },
+    eventDelete: async (nid) => {
+        const result = await sqlReview.eventDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
     }
 }
 export default adminServices;
