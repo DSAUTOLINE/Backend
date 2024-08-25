@@ -21,11 +21,21 @@ import { mentoring } from "./models/mentoring.js";
 const sqlReview = {
     eventInsert: async (body) => {
         await event.create(body)
-    },
+    }, 
     eventDelete: async (nid) => {
         const sql = await event.update({expired_at:Sequelize.literal("NOW()")},{where:{event_num:nid},raw:true})
         return sql;
-    }
+    },
+    reviewDelete: async (nid) => {
+        const sql = await review.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    },
+    reviewChange: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await review.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
 }
 
 export default sqlReview;

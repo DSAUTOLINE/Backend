@@ -113,6 +113,16 @@ router.delete( //리뷰 상세
     "/eventDelete/:nid",
     adminController.eventDelete
 )
+
+router.delete( //리뷰 상세 
+    "/reviewDelete/:nid",
+    adminController.reviewDelete
+)
+
+router.post( //리뷰 상세 
+    "/reviewChange",
+    adminController.reviewChange
+)
 export default router;
 
 
