@@ -97,7 +97,7 @@ const sqlReview = {
         return sql;
     },
 
-    quickInquiry: async (type,active) => {
+    counselingInquiry: async (type,active) => {
         if (active == 0) {
             const condition = { 
                 allow:'Y',
@@ -137,7 +137,43 @@ const sqlReview = {
         return 0
     },
 
+    CurrentSituation: async () => {
+        const sql1 = await mentoring.findAll({
+            attributes: [
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'mento_y'],
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'mento_n']
+            ],
+            where:{expired_at:null},
+            raw: true
+        });
+        const sql2 = await counselingList.findAll({
+            attributes: [
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'counsel_y'],
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'counsel_n']
+            ],
+            where:{expired_at:null},
+            raw: true
+        });
 
+        const sql3 = await estimate.findAll({
+            attributes: [
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'estimate_y'],
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'estimate_n']
+            ],
+            where:{expired_at:null,type: { [Op.ne]: '즉시 출고' }},
+            raw: true
+        });
+
+        const sql4 = await estimate.findAll({
+            attributes: [
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'quick_y'],
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'quick_n']
+            ],
+            where:{expired_at:null,type: '즉시 출고' },
+            raw: true
+        });
+        return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0]}
+    }
 
 }
 

@@ -92,7 +92,7 @@ const adminServices = {
             return result
         }
         else if (type == 2){ //간편상담 신청 
-            const result = await sqlReview.quickInquiry(type,active);
+            const result = await sqlReview.counselingInquiry(type,active);
             return result
         }else if (type == 3){ //멘토  inquiry
             const result = await sqlReview.mentoInquiry(type,active);
@@ -101,5 +101,15 @@ const adminServices = {
             return {sc:400}
         }
     },   
+
+    CurrentSituation: async () => {
+        const result = await sqlReview.CurrentSituation();
+        if(result){
+            result.sc = 200
+            return result;
+        }else{
+            return {sc:400};
+        }
+    },
 }
 export default adminServices;

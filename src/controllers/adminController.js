@@ -105,6 +105,16 @@ const adminController = {
             return res.json({sc:400})
         }
     },
+
+    CurrentSituation: async (req,res) => {
+        try{
+            const response = await adminServices.CurrentSituation()
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
     
 }
 export default adminController;

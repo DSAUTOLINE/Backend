@@ -158,6 +158,11 @@ router.get( //리뷰 상세
     "/customerList",
     adminController.customerList
 )
+
+router.get( //리뷰 상세 
+    "/currentSituation",
+    adminController.CurrentSituation
+)
 export default router;
 
 
