@@ -95,6 +95,16 @@ const adminController = {
             return res.json({sc:400})
         }
     },
+
+    customerList: async (req,res) => {
+        try{
+            const response = await adminServices.customerList(req.query.type,req.query.active)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
     
 }
 export default adminController;

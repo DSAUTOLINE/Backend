@@ -68,6 +68,77 @@ const sqlReview = {
         return sql;
     },
 
+    carInquiry: async (type,active) => {
+        const condition1 = type == 0 
+        ? { type: '즉시 출고' } 
+        : { type: { [Op.ne]: '즉시 출고' } };
+        if (active == 0) {
+            const condition2 = { 
+                ...condition1,
+                allow:'Y',
+                expired_at:null
+            };
+            const sql = await estimate.findAll({where:condition2,order:[["created_at","DESC"]],raw:true})
+            return sql
+        } else if (active == 1) {
+            
+            const condition2 = { 
+                ...condition1,
+                allow:'N',
+                expired_at:null
+            };
+            const sql = await estimate.findAll({where:condition2,order:[["created_at","DESC"]],raw:true})
+            return sql
+        }
+        return 0
+    },
+    carInquiryOption: async (nid) =>{
+        const sql = await estimateOptions.findAll({attributes:['name'],where:{order_num:nid},order:[["created_at","DESC"]],raw:true})
+        return sql;
+    },
+
+    quickInquiry: async (type,active) => {
+        if (active == 0) {
+            const condition = { 
+                allow:'Y',
+                expired_at:null
+            };
+            const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        } else if (active == 1) {
+            
+            const condition = { 
+                allow:'N',
+                expired_at:null
+            };
+            const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        }
+        return 0
+    },
+
+    mentoInquiry: async (type,active) => {
+        if (active == 0) {
+            const condition = { 
+                allow:'Y',
+                expired_at:null
+            };
+            const sql = await mentoring.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        } else if (active == 1) {
+            
+            const condition = { 
+                allow:'N',
+                expired_at:null
+            };
+            const sql = await mentoring.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        }
+        return 0
+    },
+
+
+
 }
 
 export default sqlReview;

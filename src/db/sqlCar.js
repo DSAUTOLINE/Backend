@@ -79,7 +79,7 @@ const sqlCar = {
         delete body.options
         const sql = await estimate.create(body)
         for(let i = 0; i<options.length;i++){
-            await estimateOptions.create({order_num:sql.order_num,option:options[i]})
+            await estimateOptions.create({order_num:sql.order_num,name:options[i]})
         }
         return sql;
     },
@@ -219,16 +219,16 @@ const sqlCar = {
         return sql;
     },
 
-    optionList: async (nid) => {
-        const sql = {}
-        const colors = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
-        const trims = await carTrim.findAll({attributes:['trim1','trim2','price'],where:{car_code:nid},raw:true})
-        const options = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
-        sql.color = colors 
-        sql.trim = trims 
-        sql.option = options
-        return sql;
-    },
+    // optionList: async (nid) => {
+    //     const sql = {}
+    //     const colors = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
+    //     const trims = await carTrim.findAll({attributes:['trim1','trim2','price'],where:{car_code:nid},raw:true})
+    //     const options = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
+    //     sql.color = colors 
+    //     sql.trim = trims 
+    //     sql.option = options
+    //     return sql;
+    // },
 
     quickEstimate: async (nid) => {
         const sqlQuery =`SELECT a.car_code, a.name, a.info, a.img, d.price,  a.category, b.*, c.enter, c.entry,c.logo_img, d.in_color,d.out_color,d.rgb,d.trim1, d.trim2 

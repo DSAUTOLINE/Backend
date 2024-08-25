@@ -153,6 +153,11 @@ router.delete( //리뷰 상세
     "/allOptionDelete/:nid",
     adminController.allOptionDelete
 )
+
+router.get( //리뷰 상세 
+    "/customerList",
+    adminController.customerList
+)
 export default router;
 
 

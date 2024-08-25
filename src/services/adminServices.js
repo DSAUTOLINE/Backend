@@ -79,6 +79,27 @@ const adminServices = {
         }else{
             return {sc:400};
         }
-    },                       
+    },   
+    
+    customerList: async (type,active) => { 
+        
+        if (type == 0 || type == 1 ){ //즉시출고 or 나머지 
+            const result = await sqlReview.carInquiry(type,active);
+            for (let i = 0; i < result.length; i++){
+                let option = await sqlReview.carInquiryOption(result[i].order_num)
+                result[i].option = option
+            }
+            return result
+        }
+        else if (type == 2){ //간편상담 신청 
+            const result = await sqlReview.quickInquiry(type,active);
+            return result
+        }else if (type == 3){ //멘토  inquiry
+            const result = await sqlReview.mentoInquiry(type,active);
+            return result
+        }else{
+            return {sc:400}
+        }
+    },   
 }
 export default adminServices;

@@ -22,7 +22,7 @@ estimateOptions.init(
             allowNull : true
         },
 
-        option : {
+        name : {
             type: DataTypes.STRING(45),
             allowNull : true
         },
