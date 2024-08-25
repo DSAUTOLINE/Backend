@@ -127,6 +127,9 @@ const sqlCar = {
                 type: {
                     [Op.like]: `%${type}%` // SQL의 LIKE '%%'와 동일
                 },
+                start_date: {
+                    [Op.lte]: seoulTime // start_date <= seoulTime
+                },
                 state:'out',
                 expired_at:null
             };
@@ -137,6 +140,9 @@ const sqlCar = {
             condition = { 
                 end_date: { 
                     [Op.lt]: seoulTime 
+                },
+                start_date: {
+                    [Op.lte]: seoulTime // start_date <= seoulTime
                 },
                 type: {
                     [Op.like]: `%${type}%` // SQL의 LIKE '%%'와 동일
