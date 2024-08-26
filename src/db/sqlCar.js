@@ -30,8 +30,8 @@ const sqlCar = {
         const sqlQuery = `
             SELECT a.car_code, a.name, a.info, a.img, c.rental_price, c.lease_price 
             FROM db.ds_car_list a 
-            LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
-            LEFT JOIN db.ds_car_detail c ON a.car_code = c.car_code  
+            inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
+            inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
             WHERE b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
             order by a.created_at DESC;
         `;
@@ -46,8 +46,8 @@ const sqlCar = {
         const sqlQuery = `
             SELECT a.car_code, a.name, a.img, b.rental_price, b.lease_price, c.rental_percent, c.lease_percent 
             FROM db.ds_car_list a 
-            LEFT JOIN db.ds_car_detail b ON a.car_code = b.car_code 
-            LEFT JOIN db.ds_discount_list c ON a.car_code = c.car_code 
+            inner JOIN db.ds_car_detail b ON a.car_code = b.car_code 
+            inner JOIN db.ds_discount_list c ON a.car_code = c.car_code 
             WHERE a.expired_at IS NULL
             order by a.created_at DESC;
         `;
@@ -88,9 +88,9 @@ const sqlCar = {
         const sqlQuery = `
             SELECT a.car_code, a.name, a.info, a.img,a.in_color,a.price,c.rental_price, c.lease_price, d.seq,d.out_color,d.trim1,d.trim2
             FROM db.ds_car_list a 
-            LEFT JOIN db.manufacturer b ON a.enter_code = b.enter_code 
-            LEFT JOIN db.ds_car_detail c ON a.car_code = c.car_code  
-            LEFT JOIN db.ds_quick_list d on a.car_code = d.car_code
+            inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
+            inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
+            inner JOIN db.ds_quick_list d on a.car_code = d.car_code
             WHERE b.entry LIKE "%${entry}%" AND b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
             order by a.created_at DESC;
         `;
