@@ -248,7 +248,7 @@ const sqlReview = {
     },
 
     carOptionInsert: async (nid,option) => {
-        for (let i = 0;i<color.length;i++){
+        for (let i = 0;i<option.length;i++){
             option[i].car_code = nid 
             await carOptionList.create(option[i])
         }
@@ -257,7 +257,7 @@ const sqlReview = {
     },
 
     carTrimInsert: async (nid,trim) => {
-        for (let i = 0;i<color.length;i++){
+        for (let i = 0;i<trim.length;i++){
             trim[i].car_code = nid 
             await carTrim.create(trim[i])
         }
