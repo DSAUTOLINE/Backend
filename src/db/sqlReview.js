@@ -177,6 +177,7 @@ const sqlReview = {
     
     carInquiryDelete: async (nid) => {
         const sql = await estimate.update({expired_at:Sequelize.literal("NOW()")},{where:{order_num:nid},raw:true})
+        const sql2 = await estimateOptions.update({expired_at:Sequelize.literal("NOW()")},{where:{order_num:nid},raw:true})
         return sql;
     },
     carInquiryChange: async (nid,allow) => {
@@ -205,6 +206,37 @@ const sqlReview = {
         return sql;
     },
 
+    // 차량 등록  #
+    carInsert: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    carDetailInsert: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    carColorInsert: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    carOptionInsert: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
+    carTrimInsert: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+    // #차량 등록 
 }
 
 export default sqlReview;

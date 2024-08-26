@@ -163,5 +163,9 @@ const adminServices = {
             return {sc:400};
         }
     },
+
+    carInsert: async (body) => {
+        return {sc:200}
+    }
 }
 export default adminServices;

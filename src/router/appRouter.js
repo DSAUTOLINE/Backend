@@ -193,6 +193,11 @@ router.post( //리뷰 상세
     "/mentoInquiryChange",
     adminController.mentoInquiryChange
 )
+
+router.post( //리뷰 상세 
+    "/carInsert",
+    adminController.carInsert
+)
 export default router;
 
 
