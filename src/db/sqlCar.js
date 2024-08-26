@@ -28,7 +28,7 @@ const sqlCar = {
     },
     quickFaq: async (entry,enter,category) => {//카테고리랑 브랜드 검색 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.info, a.img, c.rental_price, c.lease_price 
+            SELECT a.car_code, a.name, a.info, a.img, b.enter,b.logo_img,c.*
             FROM db.ds_car_list a 
             inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
@@ -44,10 +44,11 @@ const sqlCar = {
 
     hotDeal: async () => { 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.img, b.rental_price, b.lease_price, c.rental_percent, c.lease_percent 
+            SELECT a.car_code, a.name, a.img, b.*, c.rental_percent, c.lease_percent, d.enter,d.logo_img
             FROM db.ds_car_list a 
             inner JOIN db.ds_car_detail b ON a.car_code = b.car_code 
             inner JOIN db.ds_discount_list c ON a.car_code = c.car_code 
+            inner JOIN db.manufacturer d ON a.enter_code = d.enter_code
             WHERE a.expired_at IS NULL
             order by a.created_at DESC;
         `;
@@ -86,7 +87,7 @@ const sqlCar = {
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.info, a.img,a.in_color,a.price,c.rental_price, c.lease_price, d.seq,d.out_color,d.trim1,d.trim2
+            SELECT a.car_code, a.name, a.info, a.img, b.enter,b.logo_img,d.in_color,d.rgb,d.price,c.*, d.seq,d.out_color,d.trim1,d.trim2
             FROM db.ds_car_list a 
             inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
