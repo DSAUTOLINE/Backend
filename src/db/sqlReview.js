@@ -206,35 +206,63 @@ const sqlReview = {
         return sql;
     },
 
-    // 차량 등록  #
-    carInsert: async (nid,allow) => {
-        const change = allow=='Y'? 'N' : 'Y'
-        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+    maxCarCode: async () => {
+        const sql = await carList.findOne({
+            attributes: [[Sequelize.literal('MAX(car_code)'), 'maxCarCode']]
+        ,raw:true});
         return sql;
     },
 
-    carDetailInsert: async (nid,allow) => {
-        const change = allow=='Y'? 'N' : 'Y'
-        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+    enterCode: async (entry,enter) => {
+        const sql = await manufacturer.findOne({
+            attributes: ["enter_code"],
+            where:{entry:entry,enter:enter}
+        ,raw:true});
+        return sql;
+    }, 
+    carInsert: async (newCode,name,info,img,category,enter) => {
+        const sql = await carList.create({
+            car_code:newCode,
+            name:name,
+            info:info,
+            img:img,
+            category:category,
+            enter_code:enter
+        })
         return sql;
     },
 
-    carColorInsert: async (nid,allow) => {
-        const change = allow=='Y'? 'N' : 'Y'
-        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
+    carDetailInsert: async (data) => {
+        const sql = await carDetail.create(data)
         return sql;
     },
 
-    carOptionInsert: async (nid,allow) => {
-        const change = allow=='Y'? 'N' : 'Y'
-        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
-        return sql;
+    carColorInsert: async (nid,color) => {
+        console.log(color)
+        for (let i = 0;i<color.length;i++){
+            color[i].car_code = nid 
+            await carColor.create(color[i])
+        }
+        
+        return 1;
     },
 
-    carTrimInsert: async (nid,allow) => {
-        const change = allow=='Y'? 'N' : 'Y'
-        const sql = await mentoring.update({allow:change},{where:{seq:nid},raw:true})
-        return sql;
+    carOptionInsert: async (nid,option) => {
+        for (let i = 0;i<color.length;i++){
+            option[i].car_code = nid 
+            await carOptionList.create(option[i])
+        }
+        
+        return 1;
+    },
+
+    carTrimInsert: async (nid,trim) => {
+        for (let i = 0;i<color.length;i++){
+            trim[i].car_code = nid 
+            await carTrim.create(trim[i])
+        }
+        
+        return 1;
     },
     // #차량 등록 
 }

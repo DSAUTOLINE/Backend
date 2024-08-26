@@ -12,7 +12,8 @@ export class manufacturer extends Model{
 manufacturer.init(
     {
         enter_code : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
+            autoIncrement:true,
             primaryKey : true
         },
 

@@ -53,7 +53,7 @@ carList.init(
 
         
         enter_code : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull:true
         },
 
