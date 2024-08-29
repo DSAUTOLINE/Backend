@@ -265,7 +265,7 @@ const sqlCar = {
             FROM db.ds_car_list a 
             inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
-            WHERE a.expired_at IS NULL and a.car_code not in (select car_code from db.ds_discount_list)
+            WHERE a.expired_at IS NULL and a.car_code not in (select car_code from db.ds_discount_list WHERE car_code IS NOT NULL)
             order by a.created_at DESC;
         `;
         const sql = await sequelize.query(sqlQuery, {

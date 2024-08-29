@@ -44,6 +44,7 @@ const carServices = {
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
         const result = await sqlCar.quickDeal(entry,enter,category)
+        console.log(result)
         if(result){
             for (let i=0; i< result.length ; i++){
                 const option = await sqlCar.quickOption(result[i].seq)
