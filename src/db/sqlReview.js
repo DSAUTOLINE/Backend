@@ -71,9 +71,11 @@ const sqlReview = {
     quickInquiry: async (type,active) => {
         if (active == 0) { 
             const sqlQuery = `
-            SELECT a.*,b.name,b.phone,b.type 
-            FROM db.ds_quick_list a 
+            SELECT a.name as car_name,a.info,b.name,b.phone,b.type ,c.*,d.logo_img,d.enter
+            FROM db.ds_car_list a
             inner join db.ds_quick_counseling b on a.car_code = b.car_code
+            inner join db.ds_quick_list c on a.car_code = c.car_code
+            inner join db.manufacturer d on a.enter_code = d.enter_code
             where b.expired_at is null and b.allow = 'Y' 
             order by b.created_at DESC;
             `
@@ -83,9 +85,11 @@ const sqlReview = {
             return sql;
         } else if (active == 1) {
             const sqlQuery = `
-            SELECT a.*,b.name,b.phone,b.type,b.allow
-            FROM db.ds_quick_list a 
+            SELECT a.name as car_name,a.info,b.name,b.phone,b.type ,c.*,d.logo_img,d.enter
+            FROM db.ds_car_list a
             inner join db.ds_quick_counseling b on a.car_code = b.car_code
+            inner join db.ds_quick_list c on a.car_code = c.car_code
+            inner join db.manufacturer d on a.enter_code = d.enter_code
             where b.expired_at is null and b.allow = 'N' 
             order by b.created_at DESC;
             `
@@ -193,7 +197,7 @@ const sqlReview = {
             raw: true
         });
 
-        const sql4 = await estimate.findAll({
+        const sql4 = await quickCounseling.findAll({
             attributes: [
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'quick_y'],
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'quick_n']
@@ -324,8 +328,20 @@ const sqlReview = {
         return sql
     },
 
+    carFaqDelete: async (nid) => {
+        const sql = await carList.update({expired_at:Sequelize.literal("NOW()")},{where:{car_code:nid},raw:true})
+        return sql;
+    }, 
+    hotDealDelete: async (nid) => {
+        const sql = await discountList.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    }, 
+    quickDealDelete: async (nid) => {
+        const sql = await quickList.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        const sql2 = await quickListOptions.update({expired_at:Sequelize.literal("NOW()")},{where:{quick_num:nid},raw:true})
+        return sql;
+    }, 
     
-    // #차량 등록 
 }
 
 export default sqlReview;

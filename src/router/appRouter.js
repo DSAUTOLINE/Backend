@@ -231,6 +231,21 @@ router.post(
     "/quickCounselingInsert",
     carController.quickCounselingInsert
 )
+
+router.delete( //리뷰 상세 
+    "/carFaqDelete/:nid",
+    adminController.carFaqDelete
+)
+
+router.delete( //리뷰 상세 
+    "/hotDealDelete/:nid",
+    adminController.hotDealDelete
+)
+
+router.delete( //리뷰 상세 
+    "/quickDealDelete/:nid",
+    adminController.quickDealDelete
+)
 export default router;
 
 

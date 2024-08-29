@@ -224,6 +224,36 @@ const adminController = {
             return res.json({sc:400})
         }
     },
+
+    carFaqDelete: async (req,res) => {
+        try{
+            const response = await adminServices.carFaqDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    hotDealDelete: async (req,res) => {
+        try{
+            const response = await adminServices.hotDealDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    quickDealDelete: async (req,res) => {
+        try{
+            const response = await adminServices.quickDealDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
     
 }
 export default adminController;

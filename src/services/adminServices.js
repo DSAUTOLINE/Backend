@@ -264,5 +264,32 @@ const adminServices = {
         }
     },
 
+    carFaqDelete: async (nid) => {
+        const result = await sqlReview.carFaqDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
+    hotDealDelete: async (nid) => {
+        const result = await sqlReview.hotDealDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
+    quickDealDelete: async (nid) => {
+        const result = await sqlReview.quickDealDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
 }
 export default adminServices;
