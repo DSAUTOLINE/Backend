@@ -1,7 +1,7 @@
 import sequelize from "./index.js";
 import { DataTypes, Model, Sequelize } from "sequelize";
 
-export class quickList extends Model{
+export class quickCounseling extends Model{
     //buffer에 저장하면 binary 형태로 저장이 되기 때문에 json type으로 다시 변환시켜주기 위함
     toJSON(){
         return super.toJSON();
@@ -9,7 +9,7 @@ export class quickList extends Model{
 
 }
 
-quickList.init(
+quickCounseling.init(
     {
         seq : {
             type: DataTypes.INTEGER,
@@ -22,59 +22,24 @@ quickList.init(
             allowNull : true
         },
 
-        in_color : {
+        name : {
             type: DataTypes.STRING(45),
             allowNull : true
         },
 
-        out_color : {
+        phone : {
             type: DataTypes.STRING(45),
-            allowNull : true
+            allowNull:true
         },
 
-        trim1 : {
+        type : {
             type: DataTypes.STRING(45),
-            allowNull : true
+            allowNull:true
         },
 
-        trim2 : {
+        allow : {
             type: DataTypes.STRING(45),
-            allowNull : true
-        },
-
-        price : {
-            type: DataTypes.INTEGER,
-            allowNull : true
-        },
-
-        year : {
-            type: DataTypes.STRING(45),
-            allowNull : true
-        },
-
-        month : {
-            type: DataTypes.STRING(45),
-            allowNull : true
-        },
-
-        month_use : {
-            type: DataTypes.STRING(45),
-            allowNull : true
-        },
-
-        month_price : {
-            type: DataTypes.INTEGER,
-            allowNull : true
-        },
-
-        payment : {
-            type: DataTypes.STRING(45),
-            allowNull : true
-        },
-
-        deposit : {
-            type: DataTypes.STRING(45),
-            allowNull : true
+            allowNull:true
         },
 
         created_at : {
@@ -91,8 +56,8 @@ quickList.init(
 
     {
         sequelize,
-        modelName : "quickList",
-        tableName : "ds_quick_list",
+        modelName : "quickCounseling",
+        tableName : "ds_quick_counseling",
         timestamps : false
     }
 )

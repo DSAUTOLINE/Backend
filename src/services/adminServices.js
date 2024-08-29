@@ -84,7 +84,15 @@ const adminServices = {
     
     customerList: async (type,active) => { 
         
-        if (type == 0 || type == 1 ){ //즉시출고 or 나머지 
+        if (type == 0){
+            const result = await sqlReview.quickInquiry(type,active);
+            for (let i = 0; i < result.length; i++){
+                let option = await sqlReview.quickInquiryOption(result[i].seq)
+                result[i].option = option
+            }
+            return result
+        }
+        else if (type == 1 ){ //즉시출고 or 나머지 
             const result = await sqlReview.carInquiry(type,active);
             for (let i = 0; i < result.length; i++){
                 let option = await sqlReview.carInquiryOption(result[i].order_num)
@@ -113,7 +121,23 @@ const adminServices = {
         }
     },
 
-    
+    quickInquiryDelete: async (nid) => {  
+        const result = await sqlReview.qucikInquiryDelete(nid);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+    quickInquiryChange: async (body) => {
+        const result = await sqlReview.qucikInquiryChange(body.seq,body.allow);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
     carInquiryDelete: async (nid) => {  
         const result = await sqlReview.carInquiryDelete(nid);
         if(result){
@@ -187,7 +211,7 @@ const adminServices = {
             max_fuel_efficiency: body.max_fuel_efficiency
         }
         // # 차 등록하기 
-        const car = await sqlReview.carInsert(newCode,body.car_name,body.info,body.img,body.category,enter.enter_code)
+        const car = await sqlReview.carInsert(newCode,body.car_name,body.info,body.img,body.price,body.category,enter.enter_code)
 
         // # 차상세내용 등록하기 
         const carDetail = await sqlReview.carDetailInsert(filterData)
@@ -202,6 +226,43 @@ const adminServices = {
         const trim = await sqlReview.carTrimInsert(newCode,body.trim)
         
         return {sc:200};
-    }
+    },
+
+    quickInsert: async (body) => {
+        const code = await sqlReview.maxCarCode();
+        const newCode = generateNewKey(code.maxCarCode)
+        const enter = await sqlReview.enterCode(body.entry,body.enter)
+        const filterData = {
+            car_code: newCode,
+            price: body.price,
+            year: body.year,
+            month: body.month,
+            month_price: body.month_price,
+            month_use: body.month_use,
+            in_color: body.in_color,
+            out_color: body.out_color,
+            payment: body.payment,
+            deposit: body.deposit
+        }
+        // # 차 등록하기 
+        const car = await sqlReview.carInsert(newCode,body.car_name,body.info,body.img,body.price,body.category,enter.enter_code)
+        const quick = await sqlReview.quickInsert(filterData)
+        const option = await sqlReview.quickOptionInsert(quick.seq,body.option)
+        
+
+        
+        return {sc:200};
+    },
+
+
+    hotDealInsert: async (body) => {
+        const result = await sqlReview.hotDealInsert(body);
+        if(result){
+            return {sc:200}
+        }else{
+            return {sc:400};
+        }
+    },
+
 }
 export default adminServices;

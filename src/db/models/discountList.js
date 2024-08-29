@@ -22,12 +22,32 @@ discountList.init(
             allowNull : true
         },
 
+        rental_price : {
+            type: DataTypes.INTEGER,
+            allowNull : true
+        },
+
+        lease_price : {
+            type: DataTypes.INTEGER,
+            allowNull:true
+        },
+
         rental_percent : {
             type: DataTypes.STRING(45),
             allowNull : true
         },
 
         lease_percent : {
+            type: DataTypes.STRING(45),
+            allowNull:true
+        },
+
+        payment : {
+            type: DataTypes.STRING(45),
+            allowNull:true
+        },
+
+        deposit : {
             type: DataTypes.STRING(45),
             allowNull:true
         },

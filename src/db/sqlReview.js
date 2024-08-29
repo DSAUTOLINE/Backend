@@ -20,6 +20,7 @@ import { quickListOptions } from "./models/quickListOptions.js";
 import { mentoring } from "./models/mentoring.js";
 import { allColor } from "./models/allColor.js";
 import { allOption } from "./models/allOption.js";
+import { quickCounseling } from "./models/quickCounseling.js";
 const sqlReview = {
     eventInsert: async (body) => {
         await event.create(body)
@@ -67,14 +68,43 @@ const sqlReview = {
         const sql = await allOption.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
         return sql;
     },
+    quickInquiry: async (type,active) => {
+        if (active == 0) { 
+            const sqlQuery = `
+            SELECT a.*,b.name,b.phone,b.type 
+            FROM db.ds_quick_list a 
+            inner join db.ds_quick_counseling b on a.car_code = b.car_code
+            where b.expired_at is null and b.allow = 'Y' 
+            order by b.created_at DESC;
+            `
+            const sql = await sequelize.query(sqlQuery, {
+                type: Sequelize.QueryTypes.SELECT
+            });
+            return sql;
+        } else if (active == 1) {
+            const sqlQuery = `
+            SELECT a.*,b.name,b.phone,b.type,b.allow
+            FROM db.ds_quick_list a 
+            inner join db.ds_quick_counseling b on a.car_code = b.car_code
+            where b.expired_at is null and b.allow = 'N' 
+            order by b.created_at DESC;
+            `
+            const sql = await sequelize.query(sqlQuery, {
+                type: Sequelize.QueryTypes.SELECT
+            });
+            return sql;
+        }
+        return 0
 
+    },
+
+    quickInquiryOption: async (nid) => {
+        const sql = await quickListOptions.findAll({attributes:['name'],where:{quick_num:nid},order:[["created_at","DESC"]],raw:true})
+        return sql;
+    },
     carInquiry: async (type,active) => {
-        const condition1 = type == 0 
-        ? { type: '즉시 출고' } 
-        : { type: { [Op.ne]: '즉시 출고' } };
         if (active == 0) {
             const condition2 = { 
-                ...condition1,
                 allow:'Y',
                 expired_at:null
             };
@@ -83,7 +113,6 @@ const sqlReview = {
         } else if (active == 1) {
             
             const condition2 = { 
-                ...condition1,
                 allow:'N',
                 expired_at:null
             };
@@ -175,6 +204,16 @@ const sqlReview = {
         return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0]}
     },
     
+    qucikInquiryDelete: async (nid) => {
+        const sql = await quickCounseling.update({expired_at:Sequelize.literal("NOW()")},{where:{seq:nid},raw:true})
+        return sql;
+    },
+    qucikInquiryChange: async (nid,allow) => {
+        const change = allow=='Y'? 'N' : 'Y'
+        const sql = await quickCounseling.update({allow:change},{where:{seq:nid},raw:true})
+        return sql;
+    },
+
     carInquiryDelete: async (nid) => {
         const sql = await estimate.update({expired_at:Sequelize.literal("NOW()")},{where:{order_num:nid},raw:true})
         const sql2 = await estimateOptions.update({expired_at:Sequelize.literal("NOW()")},{where:{order_num:nid},raw:true})
@@ -220,12 +259,13 @@ const sqlReview = {
         ,raw:true});
         return sql;
     }, 
-    carInsert: async (newCode,name,info,img,category,enter) => {
+    carInsert: async (newCode,name,info,img,price,category,enter) => {
         const sql = await carList.create({
             car_code:newCode,
             name:name,
             info:info,
             img:img,
+            price:price,
             category:category,
             enter_code:enter
         })
@@ -235,6 +275,20 @@ const sqlReview = {
     carDetailInsert: async (data) => {
         const sql = await carDetail.create(data)
         return sql;
+    },
+
+    quickInsert:async (data) => {
+        const sql = await quickList.create(data)
+        return sql;
+    },
+
+    quickOptionInsert: async (nid,option) => {
+        for (let i = 0;i<option.length;i++){
+            option[i].quick_num = nid 
+            await quickListOptions.create(option[i])
+        }
+        
+        return 1;
     },
 
     carColorInsert: async (nid,color) => {
@@ -264,6 +318,13 @@ const sqlReview = {
         
         return 1;
     },
+
+    hotDealInsert: async (body) => {
+        const sql = await discountList.create(body)
+        return sql
+    },
+
+    
     // #차량 등록 
 }
 

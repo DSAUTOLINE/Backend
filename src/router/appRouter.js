@@ -163,7 +163,15 @@ router.get( //리뷰 상세
     "/currentSituation",
     adminController.CurrentSituation
 )
+router.delete( //리뷰 상세 
+    "/quickInquiryDelete/:nid",
+    adminController.quickInquiryDelete
+)
 
+router.post( //리뷰 상세 
+    "/quickInquiryChange",
+    adminController.quickInquiryChange
+)
 router.delete( //리뷰 상세 
     "/carInquiryDelete/:nid",
     adminController.carInquiryDelete
@@ -197,6 +205,31 @@ router.post( //리뷰 상세
 router.post( //리뷰 상세 
     "/carInsert",
     adminController.carInsert
+)
+
+router.post( //리뷰 상세 
+    "/quickInsert",
+    adminController.quickInsert
+)
+
+router.get(
+    "/enter",
+    carController.enter
+)
+
+router.get(
+    "/faqFilter",
+    carController.faqFilter
+)
+
+router.post(
+    "/hotDealInsert",
+    adminController.hotDealInsert
+)
+
+router.post(
+    "/quickCounselingInsert",
+    carController.quickCounselingInsert
 )
 export default router;
 

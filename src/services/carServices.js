@@ -160,5 +160,32 @@ const carServices = {
         };
     },
 
+    enter: async () => {
+        const result = await sqlCar.enter();
+        if(result){
+            return result;
+        }else{
+            return {sc:400};
+        };
+    },
+
+    faqFilter: async () => {
+        const result = await sqlCar.faqFilter();
+        if(result){
+            return result;
+        }else{
+            return {sc:400};
+        };
+    },
+
+    quickCounselingInsert: async (body) => {
+        const result = await sqlCar.quickCounselingInsert(body);
+        if(result){
+            return {sc:200};
+        }else{
+            return {sc:400};
+        };
+    },
+
 }
 export default carServices;

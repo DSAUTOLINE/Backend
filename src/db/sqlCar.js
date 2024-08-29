@@ -18,6 +18,7 @@ import { quickList } from "./models/quickList.js"
 import { review } from "./models/review.js"
 import { quickListOptions } from "./models/quickListOptions.js";
 import { mentoring } from "./models/mentoring.js";
+import { quickCounseling } from "./models/quickCounseling.js";
 const sqlCar = {
     updateFcm: async (uid,token,pid) => {
         const user = 1
@@ -32,7 +33,7 @@ const sqlCar = {
             FROM db.ds_car_list a 
             inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
-            WHERE b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
+            WHERE b.entry LIKE "%${entry}%" AND b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
             order by a.created_at DESC;
         `;
         const sql = await sequelize.query(sqlQuery, {
@@ -44,7 +45,7 @@ const sqlCar = {
 
     hotDeal: async () => { 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.img,a.category,a.price, b.*, c.rental_percent, c.lease_percent, d.enter,d.logo_img
+            SELECT a.car_code, a.name, a.img,a.category,a.price, b.year,b.month,b.size,b.gasoline,b.diesel,b.lpg,b.hybrid,b.h2,b.min_cc,b.max_cc,b.min_fuel_efficiency,b.max_fuel_efficiency, c.*, d.enter,d.logo_img
             FROM db.ds_car_list a 
             inner JOIN db.ds_car_detail b ON a.car_code = b.car_code 
             inner JOIN db.ds_discount_list c ON a.car_code = c.car_code 
@@ -103,7 +104,7 @@ const sqlCar = {
 
     ranking: async () => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            select a.car_code, a.name,a.info,a.img, b.rental_price, b.lease_price 
+            select a.car_code, a.name,a.info,a.img,a.price, b.rental_price, b.lease_price 
             from db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
             where a.car_code in 
             (SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc  ) 
@@ -252,7 +253,33 @@ const sqlCar = {
     mentoring: async (body) => {
         const sql = await mentoring.create(body);
         return sql;
-    }
+    },
+
+    enter: async () => {
+        const sql = await manufacturer.findAll({where:{expired_at:null},raw:true});
+        return sql;
+    },
+
+    faqFilter: async () => {//카테고리랑 브랜드 검색 
+        const sqlQuery = `
+            SELECT a.car_code, a.name, a.info, a.img,a.category,a.price, b.enter,b.logo_img,c.*
+            FROM db.ds_car_list a 
+            inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
+            inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
+            WHERE a.expired_at IS NULL and a.car_code not in (select car_code from db.ds_discount_list)
+            order by a.created_at DESC;
+        `;
+        const sql = await sequelize.query(sqlQuery, {
+            type: Sequelize.QueryTypes.SELECT
+        });
+        console.log(sql)
+        return sql;
+    },
+
+    quickCounselingInsert: async (body) => {
+        const sql = await quickCounseling.create(body)
+        return sql
+    },
     
 };
 

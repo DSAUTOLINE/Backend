@@ -180,6 +180,36 @@ const carController = {
             console.log(err);
             res.status(500).json({ sc:400});
         }
+    },
+
+    enter: async (req,res) => {
+        try{
+            const response = await carServices.enter()
+            return res.json(response)
+        }catch(err){
+            console.log(err);
+            res.status(500).json({ sc:400});
+        }
+    },
+
+    faqFilter: async (req,res) => {
+        try{
+            const response = await carServices.faqFilter()
+            return res.json(response)
+        }catch(err){
+            console.log(err);
+            res.status(500).json({ sc:400});
+        }
+    },
+
+    quickCounselingInsert: async (req,res) => {
+        try{
+            const response = await carServices.quickCounselingInsert(req.body)
+            return res.json(response)
+        }catch(err){
+            console.log(err);
+            res.status(500).json({ sc:400});
+        }
     }
 }
 export default carController;

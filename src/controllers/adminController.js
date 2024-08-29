@@ -116,6 +116,25 @@ const adminController = {
         }
     },
 
+    quickInquiryDelete: async (req,res) => {
+        try{
+            const response = await adminServices.quickInquiryDelete(req.params.nid)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+    quickInquiryChange: async (req,res) => {
+        try{
+            const response = await adminServices.quickInquiryChange(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
     carInquiryDelete: async (req,res) => {
         try{
             const response = await adminServices.carInquiryDelete(req.params.nid)
@@ -177,6 +196,28 @@ const adminController = {
         try{
             console.log(req.body)
             const response = await adminServices.carInsert(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    quickInsert: async (req,res) => {
+        try{
+            console.log(req.body)
+            const response = await adminServices.quickInsert(req.body)
+            return res.json(response);
+        }catch(err){
+            console.log(err)
+            return res.json({sc:400})
+        }
+    },
+
+    hotDealInsert: async (req,res) => {
+        try{
+            console.log(req.body)
+            const response = await adminServices.hotDealInsert(req.body)
             return res.json(response);
         }catch(err){
             console.log(err)

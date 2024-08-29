@@ -89,12 +89,12 @@ carDetail.init(
         },
 
         min_fuel_efficiency : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.FLOAT,
             allowNull:true
         },
 
         max_fuel_efficiency : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.FLOAT,
             allowNull:true
         },
 
