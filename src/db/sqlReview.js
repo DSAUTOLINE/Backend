@@ -202,7 +202,7 @@ const sqlReview = {
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'quick_y'],
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'quick_n']
             ],
-            where:{expired_at:null,type: '즉시 출고' },
+            where:{expired_at:null},
             raw: true
         });
         return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0]}
