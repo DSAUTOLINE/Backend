@@ -88,11 +88,10 @@ const sqlCar = {
 
     quickDeal: async (entry,enter,category) => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.info, a.img,a.category, b.enter,b.logo_img,d.in_color,d.rgb,d.price,c.*, d.seq,d.out_color,d.trim1,d.trim2
+            SELECT a.car_code, a.name, a.info, a.img,a.category, b.enter,b.logo_img,c.*
             FROM db.ds_car_list a 
             inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
-            inner JOIN db.ds_car_detail c ON a.car_code = c.car_code  
-            inner JOIN db.ds_quick_list d on a.car_code = d.car_code
+            inner JOIN db.ds_quick_list c on a.car_code = c.car_code
             WHERE b.entry LIKE "%${entry}%" AND b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
             order by a.created_at DESC;
         `;
