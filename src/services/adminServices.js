@@ -193,39 +193,38 @@ const adminServices = {
         const code = await sqlReview.maxCarCode();
         const newCode = generateNewKey(code.maxCarCode)
         console.log(newCode)
-        // console.log(newCode)
-        // const enter = await sqlReview.enterCode(body.entry,body.enter)
-        // const filterData = {
-        //     car_code: newCode,
-        //     rental_price: body.rental_price,
-        //     lease_price: body.lease_price,
-        //     year: body.year,
-        //     month: body.month,
-        //     gasoline: body.gasoline,
-        //     diesel: body.diesel,
-        //     lpg: body.lpg,
-        //     hybrid: body.hybrid,
-        //     h2: body.h2,
-        //     electric: body.electric,
-        //     min_cc: body.min_cc,
-        //     max_cc: body.max_cc,
-        //     min_fuel_efficiency: body.min_fuel_efficiency,
-        //     max_fuel_efficiency: body.max_fuel_efficiency
-        // }
-        // // # 차 등록하기 
-        // const car = await sqlReview.carInsert(newCode,body.car_name,body.info,body.img,body.price,body.category,enter.enter_code)
+        const enter = await sqlReview.enterCode(body.entry,body.enter)
+        const filterData = {
+            car_code: newCode,
+            rental_price: body.rental_price,
+            lease_price: body.lease_price,
+            year: body.year,
+            month: body.month,
+            gasoline: body.gasoline,
+            diesel: body.diesel,
+            lpg: body.lpg,
+            hybrid: body.hybrid,
+            h2: body.h2,
+            electric: body.electric,
+            min_cc: body.min_cc,
+            max_cc: body.max_cc,
+            min_fuel_efficiency: body.min_fuel_efficiency,
+            max_fuel_efficiency: body.max_fuel_efficiency
+        }
+        // # 차 등록하기 
+        const car = await sqlReview.carInsert(newCode,body.car_name,body.info,body.img,body.price,body.category,enter.enter_code)
 
-        // // # 차상세내용 등록하기 
-        // const carDetail = await sqlReview.carDetailInsert(filterData)
+        // # 차상세내용 등록하기 
+        const carDetail = await sqlReview.carDetailInsert(filterData)
 
-        // // # 컬러 등록하기 
-        // const color = await sqlReview.carColorInsert(newCode,body.color)
+        // # 컬러 등록하기 
+        const color = await sqlReview.carColorInsert(newCode,body.color)
 
-        // //# 옵션 등록하기 
-        // //const option = await sqlReview.carOptionInsert(newCode,body.option)
+        //# 옵션 등록하기 
+        //const option = await sqlReview.carOptionInsert(newCode,body.option)
 
-        // // # 트림 & 옵션 등록하기 
-        // const trim = await sqlReview.carTrimInsert(newCode,body.trim)
+        // # 트림 & 옵션 등록하기 
+        const trim = await sqlReview.carTrimInsert(newCode,body.trim)
         
         return {sc:200};
     },
