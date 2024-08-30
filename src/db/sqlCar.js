@@ -45,12 +45,12 @@ const sqlCar = {
 
     hotDeal: async () => { 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.img,a.category,a.price, b.year,b.month,b.size,b.gasoline,b.diesel,b.lpg,b.hybrid,b.h2,b.min_cc,b.max_cc,b.min_fuel_efficiency,b.max_fuel_efficiency, c.*, d.enter,d.logo_img
+            SELECT a.car_code, a.name, a.img,a.category,a.price, b.year,b.month,b.size,b.gasoline,b.diesel,b.lpg,b.hybrid,b.electric,b.h2,b.min_cc,b.max_cc,b.min_fuel_efficiency,b.max_fuel_efficiency, c.*, d.enter,d.logo_img
             FROM db.ds_car_list a 
             inner JOIN db.ds_car_detail b ON a.car_code = b.car_code 
             inner JOIN db.ds_discount_list c ON a.car_code = c.car_code 
             inner JOIN db.manufacturer d ON a.enter_code = d.enter_code
-            WHERE a.expired_at IS NULL
+            WHERE a.expired_at IS NULL and c.expired_at IS NULL
             order by a.created_at DESC;
         `;
         const sql = await sequelize.query(sqlQuery, {
@@ -92,7 +92,7 @@ const sqlCar = {
             FROM db.ds_car_list a 
             inner JOIN db.manufacturer b ON a.enter_code = b.enter_code 
             inner JOIN db.ds_quick_list c on a.car_code = c.car_code
-            WHERE b.entry LIKE "%${entry}%" AND b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND a.expired_at IS NULL
+            WHERE b.entry LIKE "%${entry}%" AND b.enter LIKE "%${enter}%" AND a.category LIKE "%${category}%" AND c.expired_at IS NULL and a.expired_at IS NULL
             order by a.created_at DESC;
         `;
         const sql = await sequelize.query(sqlQuery, {

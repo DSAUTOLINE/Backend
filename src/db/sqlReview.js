@@ -71,7 +71,7 @@ const sqlReview = {
     quickInquiry: async (type,active) => {
         if (active == 0) { 
             const sqlQuery = `
-            SELECT a.name as car_name,a.info,b.name,b.phone,b.type ,c.*,d.logo_img,d.enter
+            SELECT a.name as car_name,a.info,b.* ,c.in_color,c.out_color,c.price,c.year,c.month,c.month_use,c.month_price,c.payment,c.deposit,d.logo_img,d.enter
             FROM db.ds_car_list a
             inner join db.ds_quick_counseling b on a.car_code = b.car_code
             inner join db.ds_quick_list c on a.car_code = c.car_code
