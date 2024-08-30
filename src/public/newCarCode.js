@@ -1,5 +1,8 @@
 export const generateNewKey = (currentKey) => {
     // '_' 기준으로 분리
+    if (!currentKey) {
+        currentKey = 'ds_00000000';
+    }
     const [prefix, numberPart] = currentKey.split('_');
     
     // 숫자 부분을 int로 변환하고 1 증가시킴
