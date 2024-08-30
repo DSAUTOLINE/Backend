@@ -318,7 +318,17 @@ const sqlReview = {
     carTrimInsert: async (nid,trim) => {
         for (let i = 0;i<trim.length;i++){
             trim[i].car_code = nid 
-            await carTrim.create(trim[i])
+            let option = trim[i].option
+            
+            delete trim[i].option
+            console.log(trim[i],option)
+            const sql = await carTrim.create(trim[i])
+            
+            for (let j = 0 ; j< option.length ; j++){
+                option[j].car_code = nid
+                option[j].trim_num = sql.seq
+                await carOptionList.create(option[j])
+            }
         }
         
         return 1;

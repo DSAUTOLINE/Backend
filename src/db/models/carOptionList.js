@@ -22,6 +22,11 @@ carOptionList.init(
             allowNull : true
         },
 
+        trim_num : {
+            type: DataTypes.STRING(45),
+            allowNull : true
+        },
+
         name : {
             type: DataTypes.STRING(45),
             allowNull : true

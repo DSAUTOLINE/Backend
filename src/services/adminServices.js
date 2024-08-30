@@ -192,6 +192,7 @@ const adminServices = {
     carInsert: async (body) => {
         const code = await sqlReview.maxCarCode();
         const newCode = generateNewKey(code.maxCarCode)
+        console.log(newCode)
         const enter = await sqlReview.enterCode(body.entry,body.enter)
         const filterData = {
             car_code: newCode,
@@ -219,10 +220,10 @@ const adminServices = {
         // # 컬러 등록하기 
         const color = await sqlReview.carColorInsert(newCode,body.color)
 
-        // # 옵션 등록하기 
-        const option = await sqlReview.carOptionInsert(newCode,body.option)
+        //# 옵션 등록하기 
+        //const option = await sqlReview.carOptionInsert(newCode,body.option)
 
-        // # 트림 등록하기 
+        // # 트림 & 옵션 등록하기 
         const trim = await sqlReview.carTrimInsert(newCode,body.trim)
         
         return {sc:200};

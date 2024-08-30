@@ -67,11 +67,14 @@ const sqlCar = {
             type: Sequelize.QueryTypes.SELECT
         });
         const colors = await carColor.findAll({attributes:['name','rgb','type'],where:{car_code:nid},raw:true})
-        const trims = await carTrim.findAll({attributes:['trim1','trim2','price'],where:{car_code:nid},raw:true})
-        const options = await carOptionList.findAll({attributes:['name','img','price'],where:{car_code:nid},raw:true})
+        const trims = await carTrim.findAll({attributes:['seq','car_code','trim1','trim2','price'],where:{car_code:nid},raw:true})
+        for ( let i = 0 ; i< trims.length ; i++ ){
+            let options = await carOptionList.findAll({attributes:['name','img','price'],where:{trim_num:trims[i].seq,car_code:trims[i].car_code},raw:true})
+            trims[i].option = options
+        }
+        
         sql[0].color = colors 
         sql[0].trim = trims 
-        sql[0].option = options
 
         return sql[0];
     },
