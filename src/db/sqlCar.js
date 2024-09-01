@@ -45,7 +45,7 @@ const sqlCar = {
 
     hotDeal: async () => { 
         const sqlQuery = `
-            SELECT a.car_code, a.name, a.img,a.category,a.price, b.year,b.month,b.size,b.gasoline,b.diesel,b.lpg,b.hybrid,b.electric,b.h2,b.min_cc,b.max_cc,b.min_fuel_efficiency,b.max_fuel_efficiency, c.*, d.enter,d.logo_img
+            SELECT a.car_code, a.name, a.img,a.info,a.category,a.price, b.year,b.month,b.size,b.gasoline,b.diesel,b.lpg,b.hybrid,b.electric,b.h2,b.min_cc,b.max_cc,b.min_fuel_efficiency,b.max_fuel_efficiency, c.*, d.enter,d.logo_img
             FROM db.ds_car_list a 
             inner JOIN db.ds_car_detail b ON a.car_code = b.car_code 
             inner JOIN db.ds_discount_list c ON a.car_code = c.car_code 
