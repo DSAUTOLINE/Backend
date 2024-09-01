@@ -33,12 +33,12 @@ quickList.init(
         },
 
         trim1 : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TEXT,
             allowNull : true
         },
 
         trim2 : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TEXT,
             allowNull : true
         },
 

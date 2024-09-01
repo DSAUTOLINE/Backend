@@ -23,12 +23,12 @@ carDetail.init(
         },
 
         rental_price : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull : true
         },
 
         lease_price : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull : true
         },
 
@@ -79,12 +79,12 @@ carDetail.init(
         },
 
         min_cc : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull:true
         },
 
         max_cc : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.INTEGER,
             allowNull:true
         },
 

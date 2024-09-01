@@ -23,7 +23,7 @@ estimateOptions.init(
         },
 
         name : {
-            type: DataTypes.STRING(45),
+            type: DataTypes.TEXT,
             allowNull : true
         },
 
