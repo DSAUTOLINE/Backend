@@ -21,7 +21,12 @@ import { mentoring } from "./models/mentoring.js";
 import { allColor } from "./models/allColor.js";
 import { allOption } from "./models/allOption.js";
 import { quickCounseling } from "./models/quickCounseling.js";
+import { admin } from "./models/admin.js";
 const sqlReview = {
+    admin: async (id) => {
+        const sql = await admin.findOne({where:{id:id,expired_at:null},raw:true})
+        return sql; 
+    },
     eventInsert: async (body) => {
         await event.create(body)
     }, 

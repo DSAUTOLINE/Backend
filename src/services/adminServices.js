@@ -1,7 +1,15 @@
 import { allOption } from "../db/models/allOption.js";
 import sqlReview from "../db/sqlReview.js";
 import { generateNewKey } from "../public/newCarCode.js";
+import bcrypt from "bcrypt"
 const adminServices = {
+    admin: async (body) => {
+        const data = await sqlReview.admin(body.id)
+        if(await bcrypt.compare(body.password,data.password)){
+            return {sc:200}
+        }
+        return {sc:400}
+    },
     eventInsert: async (body) => {
         for (let i=0;i<body.length;i++){
             await sqlReview.eventInsert(body[i])

@@ -246,6 +246,11 @@ router.delete( //리뷰 상세
     "/quickDealDelete/:nid",
     adminController.quickDealDelete
 )
+
+router.post(
+    "/admin-hash/secure-entry-point/login",
+    adminController.admin
+)
 export default router;
 
 
