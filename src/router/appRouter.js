@@ -251,6 +251,16 @@ router.post(
     "/admin-hash/secure-entry-point/login",
     adminController.admin
 )
+
+router.get(
+    "/healthcheck",async (req,res) => {
+        try{
+            return res.json("OK")
+        }catch(err){
+            return res.status(400)
+        }
+    }
+)
 export default router;
 
 
