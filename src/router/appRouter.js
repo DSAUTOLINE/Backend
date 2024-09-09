@@ -261,6 +261,17 @@ router.get(
         }
     }
 )
+
+//카카오톡 테스트 
+router.get(
+    "/msgsender",
+    reviewController.msgsender
+)
+
+router.get(
+    "/msglog",
+    reviewController.msglog
+)
 export default router;
 
 
