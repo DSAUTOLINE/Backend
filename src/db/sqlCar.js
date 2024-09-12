@@ -106,11 +106,11 @@ const sqlCar = {
 
     ranking: async () => { //카테고리랑 브랜드 검색 
         const sqlQuery = `
-            select a.car_code, a.name,a.info,a.img,a.price, b.rental_price, b.lease_price 
-            from db.ds_car_list a left join db.ds_car_detail b on a.car_code = b.car_code 
+            select a.car_code, a.name,a.info,a.img,a.price, b.rental_price, b.lease_price, c.logo_img
+            from db.ds_car_list a inner join db.ds_car_detail b on a.car_code = b.car_code inner JOIN db.manufacturer c ON a.enter_code = c.enter_code 
             where a.car_code in 
-            (SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc  ) 
-            limit 4 ;;
+            (SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc limit 4 ) 
+            ;
         `;
         const sql = await sequelize.query(sqlQuery, {
             type: Sequelize.QueryTypes.SELECT
