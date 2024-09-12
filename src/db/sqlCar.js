@@ -105,17 +105,26 @@ const sqlCar = {
     },
 
     ranking: async () => { //카테고리랑 브랜드 검색 
-        const sqlQuery = `
-            select a.car_code, a.name,a.info,a.img,a.price, b.rental_price, b.lease_price, c.logo_img
-            from db.ds_car_list a inner join db.ds_car_detail b on a.car_code = b.car_code inner JOIN db.manufacturer c ON a.enter_code = c.enter_code 
-            where a.car_code in 
-            (SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc limit 4 ) 
-            ;
-        `;
-        const sql = await sequelize.query(sqlQuery, {
+        // const sqlQuery = `
+        //     select a.car_code, a.name,a.info,a.img,a.price, b.rental_price, b.lease_price, c.logo_img
+        //     from db.ds_car_list a inner join db.ds_car_detail b on a.car_code = b.car_code inner JOIN db.manufacturer c ON a.enter_code = c.enter_code 
+        //     where a.car_code in 
+        //     (SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc ) 
+        //     ;
+        // `;
+        const sqlQuery1 = `SELECT car_code FROM db.ds_estimate group by car_code order by count(car_code) desc limit 4`;
+        const sql1 = await sequelize.query(sqlQuery1, {
             type: Sequelize.QueryTypes.SELECT
         });
-        return sql;
+        const inClause = sql1.map(item => `'${item.car_code}'`).join(',');
+        const sqlQuery2 = `select a.car_code, a.name,a.info,a.img,a.price, b.rental_price, b.lease_price, c.logo_img
+        from db.ds_car_list a inner join db.ds_car_detail b on a.car_code = b.car_code inner JOIN db.manufacturer c ON a.enter_code = c.enter_code 
+        where a.car_code in (${inClause})`;
+        const sql2 = await sequelize.query(sqlQuery2, {
+            type: Sequelize.QueryTypes.SELECT
+        });
+        console.log(sql2)
+        return sql2;
     },
 
     event: async (type,active) => { //offset 0 or 1 로 진행중 종료된 나오게 
