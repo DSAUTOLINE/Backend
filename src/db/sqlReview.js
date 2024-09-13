@@ -139,7 +139,8 @@ const sqlReview = {
         if (active == 0) { 
             const condition = { 
                 allow:'Y',
-                expired_at:null
+                expired_at:null,
+                type:'간편상담'
             };
             const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
             return sql
@@ -147,7 +148,8 @@ const sqlReview = {
             
             const condition = { 
                 allow:'N',
-                expired_at:null
+                expired_at:null,
+                type:'간편상담'
             };
             const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
             return sql
@@ -175,6 +177,28 @@ const sqlReview = {
         return 0
     },
 
+    eventInquiry: async (type,active) => {
+        if (active == 0) { 
+            const condition = { 
+                allow:'Y',
+                expired_at:null,
+                type:'이벤트'
+            };
+            const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        } else if (active == 1) {
+            
+            const condition = { 
+                allow:'N',
+                expired_at:null,
+                type:'이벤트'
+            };
+            const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        }
+        return 0
+    },
+
     currentSituation: async () => {
         const sql1 = await mentoring.findAll({
             attributes: [
@@ -189,7 +213,7 @@ const sqlReview = {
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'counsel_y'],
                 [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'counsel_n']
             ],
-            where:{expired_at:null},
+            where:{expired_at:null,type:'간편상담'},
             raw: true
         });
 
@@ -210,7 +234,16 @@ const sqlReview = {
             where:{expired_at:null},
             raw: true
         });
-        return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0]}
+
+        const sql5 = await counselingList.findAll({
+            attributes: [
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'event_y'],
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'event_n']
+            ],
+            where:{expired_at:null,type:'이벤트'},
+            raw: true
+        });
+        return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0], ...sql5[0]}
     },
     
     qucikInquiryDelete: async (nid) => {
