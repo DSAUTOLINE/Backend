@@ -31,6 +31,11 @@ const reviewController = {
     },
     msglog: async (req,res) => {
         try{
+            const data = new FormData()
+            const response = await axios.get("https://apimsg.wideshot.co.kr/api/v2/message/results",{
+                headers: {'sejongApiKey':process.env.SEJONG_API_KEY}
+            })
+            console.log(response.data)
             return res.json({sc:200});
         }catch(err){
             console.log(err)
