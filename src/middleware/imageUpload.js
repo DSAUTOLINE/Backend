@@ -1,6 +1,7 @@
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import dotenv from 'dotenv';
+import path from 'path';
 import { S3Client } from '@aws-sdk/client-s3';
 // .env 파일에서 환경 변수를 가져오기 위해 필요
 dotenv.config();
@@ -15,7 +16,7 @@ const s3 = new S3Client({
         secretAccessKey : process.env.S3_SECRET_KEY
     }
 })
-
+const allowed = ['.png','.jpg','.jpeg']
 export const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -24,6 +25,10 @@ export const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE,
         key: function (req, file, cb) {
             const filename = file.originalname;
+            const extension = path.extname(file.originalname)
+            if(!allowed.includes(extension)){
+                return cb(new Error("error"))
+            }
             const key = filename;
             cb(null, key);
         },

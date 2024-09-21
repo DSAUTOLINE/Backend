@@ -1,5 +1,5 @@
 import sqlCar from "../db/sqlCar.js";
-
+import kakao from "../middleware/alimtalk.js";
 const carServices = {
     home: async () => {
         
@@ -27,6 +27,7 @@ const carServices = {
     estimate: async (nid) => {  //파라미터 넘겨받기  req.query.파람이름  or req.params.nid
         const result = await sqlCar.estimate(nid)
         if(result){
+            
             return result;
         }else{
             return {sc:400};
@@ -36,6 +37,7 @@ const carServices = {
     estimateInsert: async (body) => {
         const result = await sqlCar.estimateInsert(body)
         if(result){
+            //await kakao.alimtalk(body.name,body.phone)
             return {sc:200};
         }else{
             return {sc:400};
@@ -118,6 +120,7 @@ const carServices = {
     counseling: async (body) => {
         const result = await sqlCar.counseling(body);
         if(result){
+            await kakao.alimtalk(body.name,body.phone)
             return {sc:200};
         }else{
             return {sc:400};
@@ -182,6 +185,7 @@ const carServices = {
     quickCounselingInsert: async (body) => {
         const result = await sqlCar.quickCounselingInsert(body);
         if(result){
+            //await kakao.alimtalk(body.name,body.phone)
             return {sc:200};
         }else{
             return {sc:400};
