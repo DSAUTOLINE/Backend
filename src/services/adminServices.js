@@ -117,6 +117,9 @@ const adminServices = {
         }else if (type == 4){ //이벤트  inquiry
             const result = await sqlReview.eventInquiry(type,active);
             return result
+        }else if (type == 5){ //이벤트  inquiry
+            const result = await sqlReview.eventInquiry(type,active);
+            return result
         }else{
             return {sc:400}
         }

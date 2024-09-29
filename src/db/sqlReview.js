@@ -199,6 +199,28 @@ const sqlReview = {
         return 0
     },
 
+    companyInquiry: async (type,active) => {
+        if (active == 0) { 
+            const condition = { 
+                allow:'Y',
+                expired_at:null,
+                type:'기업상담'
+            };
+            const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        } else if (active == 1) {
+            
+            const condition = { 
+                allow:'N',
+                expired_at:null,
+                type:'기업상담'
+            };
+            const sql = await counselingList.findAll({where:condition,order:[["created_at","DESC"]],raw:true})
+            return sql
+        }
+        return 0
+    },
+
     currentSituation: async () => {
         const sql1 = await mentoring.findAll({
             attributes: [
@@ -243,7 +265,16 @@ const sqlReview = {
             where:{expired_at:null,type:'이벤트'},
             raw: true
         });
-        return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0], ...sql5[0]}
+
+        const sql6 = await counselingList.findAll({
+            attributes: [
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'Y' THEN 1 ELSE 0 END)`), 'company_y'],
+                [Sequelize.literal(`SUM(CASE WHEN allow = 'N' THEN 1 ELSE 0 END)`), 'company_n']
+            ],
+            where:{expired_at:null,type:'기업상담'},
+            raw: true
+        });
+        return {...sql1[0], ...sql2[0], ...sql3[0], ...sql4[0], ...sql5[0], ...sql6[0]}
     },
     
     qucikInquiryDelete: async (nid) => {
